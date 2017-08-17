@@ -1,4 +1,4 @@
-# Ingresso Seating Plan Widget
+# Feather
 
 This tool allows you to easily build **interactive seat selection** into your website and is powered by the Ingresso API.
 
@@ -105,7 +105,7 @@ Availability data and colours are received via their own callbacks (**onNewAvail
 
 ## Reserving Seats
 
-It's enough to call the **reserve** method on the library, which will start the reservation process. It will handle edge cases as well (if the selected seats have become unavailable in the meantime, or any error caused by the back-end) and will fire the **goToCheckout** callback when the reservation process is complete or **onReserveStopped** if an error has appeared. 
+It's enough to call the **reserve** method on the library, which will start the reservation process. It will handle edge cases as well (if the selected seats have become unavailable in the meantime, or any error caused by the back-end) and will fire the **goToCheckout** callback when the reservation process is complete or **onReserveStopped** if an error has appeared.
 
 When called, **goToCheckout** will contain a **transaction_uuid** property, that represents a unique identifier assigned to that specific order. You can then go on to reserve that order, based on the token, via the Ingresso API.
 
