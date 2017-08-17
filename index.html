@@ -1,0 +1,94 @@
+<!doctype html>
+
+<html>
+  <head>
+    <!-- Loading Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="main.css">
+    </style>
+  </head>
+
+  <body>
+    <div id="chart-container"></div>
+    <div id="basket">
+      <h3 class="section-title"> Your tickets </h3>
+      <div id="seats"></div>
+      <p id="total">
+        <span id="label"></span>
+        <span id="value"></span>
+      </p>
+      <button id="checkout">
+        <span class="text"> Book Now </span>
+        <span class="preloader"> Loading... </span>
+      </button>
+    </div>
+    <div id="calendar">
+      <h3 class="section-title"> Choose a performance </h3>
+        <input id="perf-id"type="text" placeholder="Performance ID here"/>
+        </br>
+        <button id="select-perf"> Select performance </button>
+    </div>
+    <div id="control-panel">
+      <h3 class="section-title"> Features of the interactive chart </h3>
+      <div>
+          <label> Show Legend:</label>
+          <input id="checkbox-legend" type="checkbox"></input>
+          <label> Show Zoom Controls:</label>
+          <input id="checkbox-controls" type="checkbox"></input>
+          <br>
+          <label>Color Scheme: </label>
+          <select style="outline: 0" id="select-color-scheme">
+              <option> Default </option>
+              <option selected> Pastel </option>
+              <option> Bold </option>
+              <option> Grayscale </option>
+              <option> Sea shells </option>
+          </select>
+          <br>
+          <div id="zoom-controls">
+            <button id='zoom-in'> Zoom In </button>
+            <button id='zoom-out'> Zoom Out </button>
+            <button id='reset-chart'> Reset Chart </button>
+            <button id='show-chart'> Show Widget </button>
+            <button id='hide-chart'> Hide Widget </button>
+          </div>
+      </div>
+    </div>
+    <div id="response-json">
+      <h3 class="section-title"> Event data for: <span id='event-name'> No event yet </span></h3>
+      <pre id="content"> Do an action to see the JSON output here </pre>
+    </div>
+    <div id="checkout-modal" class="modal fade">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title"> Order Summary <small class="text-warning"> (your seats have been reserved for 15 minutes) </small> </h4>
+              </div>
+              <div class="modal-body">
+                  <div id="seats"></div>
+              </div>
+              <div class="modal-footer">
+                <div class="text-center">
+                  <h3 id="total"></h3>
+                  <button type="button" class="btn btn-primary" id="release"> Release Reservation </button>
+                  <p class="transaction-uuid"></p>
+                </div>
+              </div>
+          </div>
+      </div>
+    </div>
+  </body>
+
+
+  <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="https://feather.ingresso.co.uk/download"></script>
+  <script src="main.js"></script>
+
+</html>
