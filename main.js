@@ -1,45 +1,3 @@
-/**
-  In order to specify the event/performance to load availability for, as well
-  as to specify where to load the widget, we use a configuration object.
-  Configuration parameters needed:
-    eventID
-    perfID
-    selector (for the container that will hold the widget)
-
-  In order to allow the host page to respond to user actions on the seating plan,
-  there are a suite of event listeners available:
-    onChartInitialised
-    onAddSeat
-    onRemoveSeat
-    onEmptyBasket
-    onGoToCheckout
-    onNewAvailabilityData
-    onNewLegendColors
-    onReserveStopped
-  All of the actions taken will send a payload of data necessary to display the
-  right information to the user.
-
-  There are also some imperative methods used to control the widget,
-  that we can call either before or after initialising it:
-    zoomIn
-    zoomOut
-    resetChart
-    hideControls
-    showControls
-    hideLegend
-    showLegend
-    reserve
-    release
-    changeColorScheme
-    selectPerformance
-
-  Availability data and colours are received via their own
-  callbacks (onNewAvailabilityData and onNewLegendColors) and
-  are needed in order to display pricing information and colors for the selected
-  seats. (Each seat data contains a reference to a specific legend item,
-  for price/colour)
-**/
-
 var colors = {};
 var domain = getQueryStringParam(window.location.href, 'domain');
 var username = getQueryStringParam(window.location.href, 'username');
@@ -101,6 +59,7 @@ $('#zoom-controls #reset-chart').click(chart.resetChart);
 $('#zoom-controls #show-chart').click(chart.show);
 $('#zoom-controls #hide-chart').click(chart.hide);
 $("#basket>button#checkout").click(onCheckoutButton);
+$("#basket .empty-basket").click(onEmptyBasketButton);
 $("#checkout-modal #release").click(releaseReservation);
 
 function addSeat(data) {
@@ -117,14 +76,16 @@ function updateBasket(newBasket) {
     seatElement.append("<span class='color-code' style='border-color: " + colors[seat.legend].selected + "; background-color:" + colors[seat.legend].normal + "'></span>")
     seatElement.append("<span class='description'>" + availability.seat_blocks[seat.seat_block].desc + "</span>")
     seatElement.append("<span class='price'>" + getFormattedPrice(availability.legend[seat.legend].price, availability.currency) + "</span>")
-    seatElement.append("<br>")
+    seatElement.append("<span class='remove-seat' data-seat-id='"+seat.uuid+"'><i class='fa fa-trash'></i></span>")
+    seatElement.append("<br>");
     seatElement.append("<span style='margin-left: 18px;' class='id'> Seat: " + seat.seat_id + "</span>")
     $('#basket #seats').append(seatElement);
-  })
+  });
   if(newBasket.seats.length == 0) {
     $("#basket #total #label").text("Your basket is currently empty");
     $('#basket #total').removeClass("with-seats");
     $("#basket>button#checkout").css('display','none');
+    $("#basket .empty-basket").css('display','none');
     $("#basket #total #value").css('opacity', '0');
   } else {
     $("#basket #total #value").css('opacity', '1');
@@ -133,7 +94,14 @@ function updateBasket(newBasket) {
     $('#basket #total').removeClass("with-seats");
     $('#basket #total').addClass("with-seats");
     $("#basket>button#checkout").css('display','block');
+    $("#basket .empty-basket").css('display','block');
   }
+  $('.item .remove-seat').unbind('click').bind('click', onRemoveSeatClick);
+}
+
+function onRemoveSeatClick(event) {
+  var seatUUID = $(event.target).parent().attr('data-seat-id');
+  chart.removeSeat(seatUUID);
 }
 
 function removeSeat(data) {
@@ -228,6 +196,10 @@ function onCheckoutButton() {
   $('button#checkout').addClass('disabled');
   $('button#checkout .preloader').show();
   $('button#checkout .text').hide();
+}
+
+function onEmptyBasketButton() {
+  chart.emptyBasket();
 }
 
 /**

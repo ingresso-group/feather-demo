@@ -171,3 +171,26 @@ button#checkout .preloader{
   width: calc(100% - 10px);
   margin-bottom: 5px;
 }
+
+.remove-seat {
+  margin-left: 10px;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+.remove-seat:hover {
+  opacity: 0.5;
+}
+
+.empty-basket {
+  width: 100%;
+  text-align: center;
+  display: inline-block;
+  box-sizing: border-box;
+  padding-right: 10px;
+  margin-top: -5px;
+  margin-bottom: 15px;
+  color: #999;
+  cursor: pointer;
+  display: none;
+}
