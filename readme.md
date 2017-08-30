@@ -4,7 +4,7 @@ This tool allows you to easily build **interactive seat selection** into your we
 
 ## Demo:
 
-[Click to view the demo](https://github.com/ingresso-group/feather-demo)
+[Click to view the demo](www.ingresso.co.uk/feather-demo/?event=2GXJ&perf=2GXJ-46F&domain=www.fromtheboxoffice.com)
 
 ## Getting Started:
 
