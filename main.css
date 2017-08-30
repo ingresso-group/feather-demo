@@ -53,6 +53,9 @@
   font-size: 14px;
   overflow: scroll;
   word-wrap: break-word;
+  width: 100%;
+  position: relative;
+  left: 25px;
 }
 #response-json #content{
   font-family: monospace;
