@@ -45,7 +45,7 @@
   position: relative;
   float: right;
   padding-left: 10px;
-  background-color: #F2F2F2;
+  background-color: #546e7a;
 }
 #response-json {
   margin-top: 20px;
@@ -134,8 +134,8 @@
   margin-left: -10px;
 }
 button, select {
-  background-color: #EC008C;
-  border: 1px solid #B4006B;
+  background-color: #546e7a;
+  border: 0;
   padding: 5px 10px;
   border-radius: 4px !important;
   font-size: 15px;
@@ -144,7 +144,7 @@ button, select {
   cursor: pointer;
 }
 button:hover, select:hover {
-  background-color: #B4006B;
+  background-color: #37474f;
 }
 
 #checkout-modal #total {
