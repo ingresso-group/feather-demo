@@ -45,7 +45,8 @@
   position: relative;
   float: right;
   padding-left: 10px;
-  background-color: #546e7a;
+  background-color: #fafafa;
+  border: 1px solid #ddd;
 }
 #response-json {
   margin-top: 20px;
