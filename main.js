@@ -219,7 +219,7 @@ function getPostSymbol(currencyObj) {
   return currency.post_symbol;
 }
 
-function getFormattedPrice(price, currencyObj, roundIfOverHundred = false) {
+function getFormattedPrice(price, currencyObj, roundIfOverHundred) {
   if(!currencyObj) return;
   var preSymbol = currencyObj.pre_symbol;
   var postSymbol = currencyObj.post_symbol;
