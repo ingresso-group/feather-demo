@@ -7,14 +7,15 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title> Feather </title>
   </head>
 
   <body>
     <div id="chart-container"></div>
     <div id="basket">
       <h3 class="section-title"> Your tickets </h3>
-      <div id="seats"></div>
-      <p id="total">
+      <div class="seats"></div>
+      <p class="total">
         <span id="label"></span>
         <span id="value"></span>
       </p>
@@ -34,9 +35,9 @@
       <h3 class="section-title"> Features of the interactive chart </h3>
       <div>
           <label> Show Legend:</label>
-          <input id="checkbox-legend" type="checkbox"></input>
+          <input id="checkbox-legend" type="checkbox">
           <label> Show Zoom Controls:</label>
-          <input id="checkbox-controls" type="checkbox"></input>
+          <input id="checkbox-controls" type="checkbox">
           <br>
           <label>Color Scheme: </label>
           <select style="outline: 0" id="select-color-scheme">
@@ -68,11 +69,11 @@
                   <h4 class="modal-title"> Order Summary <small class="text-warning"> (your seats have been reserved for 15 minutes) </small> </h4>
               </div>
               <div class="modal-body">
-                  <div id="seats"></div>
+                  <div class="seats"></div>
               </div>
               <div class="modal-footer">
                 <div class="text-center">
-                  <h3 id="total"></h3>
+                  <h3 class="total"></h3>
                   <button type="button" class="btn btn-primary" id="release"> Release Reservation </button>
                   <p class="transaction-uuid"></p>
                 </div>

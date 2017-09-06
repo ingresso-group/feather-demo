@@ -45,10 +45,10 @@ chart.onReserveStopped = onReserveStopped;
 chart.changeColorScheme(['#462446', '#B05F6D', '#EB6B56', '#FFC153', '#47B39D', '#CDCBA6', '#008891', '#00587A', '#ff0000', '#0F3057']);
 
 chart.showControls();
-document.querySelector('#checkbox-controls').checked = true;
+$('#checkbox-controls').attr('checked', 'true');
 
 chart.showLegend();
-document.querySelector('#checkbox-legend').checked = true;
+$('#checkbox-legend').attr('checked', 'true');
 
 chart.init(chartConfig);
 
@@ -70,7 +70,7 @@ function addSeat(data) {
 
 
 function updateBasket(newBasket) {
-  $('#basket #seats').empty();
+  $('#basket .seats').empty();
   newBasket.seats.forEach(function(seat) {
     var seatElement = $("<p class='item' id='" + seat.uuid + "'> </p>");
     seatElement.append("<span class='color-code' style='border-color: " + colors[seat.legend].selected + "; background-color:" + colors[seat.legend].normal + "'></span>")
@@ -79,20 +79,20 @@ function updateBasket(newBasket) {
     seatElement.append("<span class='remove-seat' data-seat-id='"+seat.uuid+"'><i class='fa fa-trash'></i></span>")
     seatElement.append("<br>");
     seatElement.append("<span style='margin-left: 18px;' class='id'> Seat: " + seat.seat_id + "</span>")
-    $('#basket #seats').append(seatElement);
+    $('#basket .seats').append(seatElement);
   });
   if(newBasket.seats.length == 0) {
-    $("#basket #total #label").text("Your basket is currently empty");
-    $('#basket #total').removeClass("with-seats");
+    $("#basket .total #label").text("Your basket is currently empty");
+    $('#basket .total').removeClass("with-seats");
     $("#basket>button#checkout").css('display','none');
     $("#basket .empty-basket").css('display','none');
-    $("#basket #total #value").css('opacity', '0');
+    $("#basket .total #value").css('opacity', '0');
   } else {
-    $("#basket #total #value").css('opacity', '1');
-    $("#basket #total #value").text(getFormattedPrice(newBasket.total, availability.currency));
-    $("#basket #total #label").text('Total:');
-    $('#basket #total').removeClass("with-seats");
-    $('#basket #total').addClass("with-seats");
+    $("#basket .total #value").css('opacity', '1');
+    $("#basket .total #value").text(getFormattedPrice(newBasket.total, availability.currency));
+    $("#basket .total #label").text('Total:');
+    $('#basket .total').removeClass("with-seats");
+    $('#basket .total').addClass("with-seats");
     $("#basket>button#checkout").css('display','block');
     $("#basket .empty-basket").css('display','block');
   }
@@ -137,9 +137,9 @@ function goToCheckout(data) {
   $('button#checkout .text').show();
   $('button#checkout').removeClass('disabled');
   $("#checkout-modal").modal('show');
-  $('#checkout-modal #total').html($('#basket #total').html());
+  $('#checkout-modal .total').html($('#basket .total').html());
   $('#checkout-modal .transaction-uuid').html('Transaction uuid: </br>' + data.transaction_uuid);
-  $('#checkout-modal #seats').html($('#basket #seats').html());
+  $('#checkout-modal .seats').html($('#basket .seats').html());
 }
 function seatsReserved(data) {
   $('#response-json #content').html(syntaxHighlight(data.data));
@@ -147,8 +147,8 @@ function seatsReserved(data) {
   goToCheckout(data);
 }
 
-$("#basket #total #value").css('opacity', '0');
-$("#basket #total #label").text("Your basket is currently empty");
+$("#basket .total #value").css('opacity', '0');
+$("#basket .total #label").text("Your basket is currently empty");
 
 $("#checkbox-legend").change(onCheckboxLegendChanged);
 function onCheckboxLegendChanged(e) {
