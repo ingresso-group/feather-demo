@@ -45,6 +45,7 @@ chart.onReserveStopped = onReserveStopped;
 chart.changeColorScheme(['#462446', '#B05F6D', '#EB6B56', '#FFC153', '#47B39D', '#CDCBA6', '#008891', '#00587A', '#ff0000', '#0F3057']);
 
 chart.showControls();
+chart.disableScrollToZoom();
 $('#checkbox-controls').attr('checked', 'true');
 
 chart.showLegend();
