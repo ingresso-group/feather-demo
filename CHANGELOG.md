@@ -4,6 +4,9 @@
 ### Changed
 - Updated the documentation URL that is displayed in the console when Feather is not initialised/used correctly
 
+### Added
+- Added unit tests
+
 
 ##  [0.0.8](https://storage.googleapis.com/ticketswitch/feather/0.0.8/feather.min.js) - 2017-09-14
 ### Added
