@@ -94,6 +94,8 @@ There are also some imperative methods used to control the widget, that we can c
 * showLegend
 * reserve
 * release
+* disableScrollToZoom
+* disableInitialToZoom
 * changeColorScheme (Array of strings) (Hex colors, e.g ['#462446', '#B05F6D', '#EB6B56', '#FFC153', '#47B39D', '#CDCBA6', '#008891', '#00587A', '#ff0000', '#0F3057'])
 * selectPerformance (String) (ID of desired performance, you get this from the Ingresso API; when this function is called, the widget will automatically make itself visible)
 
@@ -138,3 +140,27 @@ In most cases, it is best to have a calendar that allows users to choose a perfo
 ## Widget preloader
 
 The library creates, shows and hides the preloader for you, transparently.
+
+## Changelog
+
+##  0.0.9 - 2017-09-14
+### Changed
+- Updated the documentation URL that is displayed in the console when Feather is not initialised/used correctly
+
+
+##  0.0.8 - 2017-09-14
+### Added
+- added functions: disableScrollToZoom and disableInitialZoom
+- offers displayed in the legend now use a branded colour, instead of being hardcoded to red
+
+
+##  0.0.7 - 2017-09-06
+### Added
+- added a protection against invalid messages, caused by external libraries/browser extensions
+
+### Fixed
+- fixed some IE-specific errors
+
+##  0.0.6 - 2017-09-06
+### Fixed
+- Fixed a syntax error
