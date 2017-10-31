@@ -222,8 +222,8 @@ function getPostSymbol(currencyObj) {
 
 function getFormattedPrice(price, currencyObj, roundIfOverHundred) {
   if(!currencyObj) return;
-  var preSymbol = currencyObj.pre_symbol;
-  var postSymbol = currencyObj.post_symbol;
+  var preSymbol = currencyObj.pre_symbol || "";
+  var postSymbol = currencyObj.post_symbol || "";
   if(roundIfOverHundred && parseFloat(price) > 100) price = parseInt(price);
   return preSymbol + parseFloat(price).toFixed(2) + postSymbol;
 }
