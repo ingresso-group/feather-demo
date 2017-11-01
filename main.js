@@ -2,66 +2,103 @@ var colors = {};
 var domain = getQueryStringParam(window.location.href, 'domain');
 var username = getQueryStringParam(window.location.href, 'username');
 var password = getQueryStringParam(window.location.href, 'password');
+var token = getQueryStringParam(window.location.href, 'token');
+var eventID = getQueryStringParam(window.location.href, 'event');
 
-// widget configuration
-var chartConfig = {
-  eventID: getQueryStringParam(window.location.href, 'event'),
-  token: getQueryStringParam(window.location.href, 'token'),
-  selector: '#chart-container',
-  silenceWarnings: false,
-  preloaderColor: '#EC008C',
-  domain: domain,
+function authAndRedirectDemo() {
+  var url = "https://b2b.ingresso.co.uk/api/b2b/";
+  var user = "demo";
+  var password = "demopass";
+  $.ajax
+  ({
+    type: "GET",
+    url: url,
+    dataType: 'json',
+    headers: {
+      "Authorization": "Basic " + btoa(user + ":" + password),
+      "Content-Type": "application/json"
+    },
+    success: function (response, status, info) {
+      var token = info.getResponseHeader('X-B2B-Token');
+      $("#auth-button").hide();
+      createChart("7AB", token, "b2b.ingresso.co.uk", "7AB-4");
+    }
+  });
+};
+
+function createChart(eventID, token, domain, performance) {
+
+  if (!token) { token = getQueryStringParam(window.location.href, 'token'); }
+  if (!eventID) { eventID = getQueryStringParam(window.location.href, 'event'); }
+  if (!domain) { domain = getQueryStringParam(window.location.href, 'domain'); }
+  if (!performance) { performance = getQueryStringParam(window.location.href, 'performance'); }
+
+  // Create the chart widget
+  // widget configuration
+  var chartConfig = {
+    eventID: eventID, 
+    token: token,
+    selector: '#chart-container',
+    silenceWarnings: false,
+    preloaderColor: '#EC008C',
+    domain: domain,
+  }
+
+  chartConfig.perfID = performance;
+
+  $('button#select-perf').click(selectNewPerf);
+  function selectNewPerf(event) {
+    var perfID = $('input#perf-id').val();
+    chart.selectPerformance(perfID);
+  }
+
+  // initialising the widget
+  var chart = new IngressoSeatingPlan();
+
+  // subscribing to events
+  chart.onAddSeat = addSeat;
+  chart.onRemoveSeat = removeSeat;
+  chart.onEmptyBasket = emptyBasket;
+  chart.onSeatsReserved = seatsReserved;
+  chart.onGoToCheckout = goToCheckout;
+  chart.onNewAvailabilityData = onNewAvailabilityData;
+  chart.onNewLegendColors = onNewLegendColors;
+  chart.onReserveStopped = onReserveStopped;
+
+  // setting a custom color scheme
+  chart.changeColorScheme(['#462446', '#B05F6D', '#EB6B56', '#FFC153', '#47B39D', '#CDCBA6', '#008891', '#00587A', '#ff0000', '#0F3057']);
+
+  chart.showControls();
+  chart.disableScrollToZoom();
+  $('#checkbox-controls').attr('checked', 'true');
+
+  chart.showLegend();
+  $('#checkbox-legend').attr('checked', 'true');
+
+  chart.init(chartConfig);
+
+  // using custom UI elements to control the widget
+  $('#zoom-controls #zoom-in').click(chart.zoomIn);
+  $('#zoom-controls #zoom-out').click(chart.zoomOut);
+  $('#zoom-controls #reset-chart').click(chart.resetChart);
+  $('#zoom-controls #show-chart').click(chart.show);
+  $('#zoom-controls #hide-chart').click(chart.hide);
+  $("#basket>button#checkout").click(onCheckoutButton);
+  $("#basket .empty-basket").click(onEmptyBasketButton);
+  $("#checkout-modal #release").click(releaseReservation);
+};
+
+if (!token || !eventID || !domain) {
+  var button = $('<button/>', {
+    text: "Use Ingresso B2B Example",
+    id: "auth-button",
+    click: authAndRedirectDemo,
+  });
+  $("#chart-container").append(button);
 }
-
-var performance = getQueryStringParam(window.location.href, 'perf');
-
-if(performance) {
-  chartConfig.perfID = getQueryStringParam(window.location.href, 'perf');
+else {
+  createChart();
 }
-
-$('button#select-perf').click(selectNewPerf);
-function selectNewPerf(event) {
-  var perfID = $('input#perf-id').val();
-  chart.selectPerformance(perfID);
-}
-
-var perfs = ['2GXJ-441','2GXJ-442','2GXJ-47J','2GXJ-441','2GXJ-442','2GXJ-47J','2GXJ-441','2GXJ-442','2GXJ-47J'];
-var crtPerf = 0;
-
-// initialising the widget
-var chart = new IngressoSeatingPlan();
-
-// subscribing to events
-chart.onAddSeat = addSeat;
-chart.onRemoveSeat = removeSeat;
-chart.onEmptyBasket = emptyBasket;
-chart.onSeatsReserved = seatsReserved;
-chart.onGoToCheckout = goToCheckout;
-chart.onNewAvailabilityData = onNewAvailabilityData;
-chart.onNewLegendColors = onNewLegendColors;
-chart.onReserveStopped = onReserveStopped;
-
-// setting a custom color scheme
-chart.changeColorScheme(['#462446', '#B05F6D', '#EB6B56', '#FFC153', '#47B39D', '#CDCBA6', '#008891', '#00587A', '#ff0000', '#0F3057']);
-
-chart.showControls();
-chart.disableScrollToZoom();
-$('#checkbox-controls').attr('checked', 'true');
-
-chart.showLegend();
-$('#checkbox-legend').attr('checked', 'true');
-
-chart.init(chartConfig);
-
-// using custom UI elements to control the widget
-$('#zoom-controls #zoom-in').click(chart.zoomIn);
-$('#zoom-controls #zoom-out').click(chart.zoomOut);
-$('#zoom-controls #reset-chart').click(chart.resetChart);
-$('#zoom-controls #show-chart').click(chart.show);
-$('#zoom-controls #hide-chart').click(chart.hide);
-$("#basket>button#checkout").click(onCheckoutButton);
-$("#basket .empty-basket").click(onEmptyBasketButton);
-$("#checkout-modal #release").click(releaseReservation);
 
 function addSeat(data) {
   $('#response-json #content').html(syntaxHighlight(data));
