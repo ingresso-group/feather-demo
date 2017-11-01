@@ -198,3 +198,9 @@ button#checkout .preloader{
   cursor: pointer;
   display: none;
 }
+
+#auth-button {
+  margin: 0 auto;
+  display: block;
+  margin-top: 20%;
+}
