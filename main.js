@@ -7,7 +7,7 @@ var eventID = getQueryStringParam(window.location.href, 'event');
 var chart;
 
 function authAndRedirectDemo() {
-  var url = "https://b2b.ingresso.co.uk/api/b2b/";
+  var url = "https://b2b.staging.ingresso.co.uk/api/b2b/";
   var user = "demo";
   var password = "demopass";
   $.ajax
@@ -22,7 +22,7 @@ function authAndRedirectDemo() {
     success: function (response, status, info) {
       var token = info.getResponseHeader('X-B2B-Token');
       $("#auth-button").hide();
-      createChart("7AB", token, "b2b.ingresso.co.uk", "7AB-4");
+      createChart("7AB", token, "b2b.staging.ingresso.co.uk", "7AB-4");
     }
   });
 };
