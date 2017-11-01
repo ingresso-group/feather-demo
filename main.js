@@ -4,6 +4,7 @@ var username = getQueryStringParam(window.location.href, 'username');
 var password = getQueryStringParam(window.location.href, 'password');
 var token = getQueryStringParam(window.location.href, 'token');
 var eventID = getQueryStringParam(window.location.href, 'event');
+var chart;
 
 function authAndRedirectDemo() {
   var url = "https://b2b.ingresso.co.uk/api/b2b/";
@@ -27,7 +28,6 @@ function authAndRedirectDemo() {
 };
 
 function createChart(eventID, token, domain, performance) {
-
   if (!token) { token = getQueryStringParam(window.location.href, 'token'); }
   if (!eventID) { eventID = getQueryStringParam(window.location.href, 'event'); }
   if (!domain) { domain = getQueryStringParam(window.location.href, 'domain'); }
@@ -53,7 +53,7 @@ function createChart(eventID, token, domain, performance) {
   }
 
   // initialising the widget
-  var chart = new IngressoSeatingPlan();
+  chart = new IngressoSeatingPlan();
 
   // subscribing to events
   chart.onAddSeat = addSeat;
