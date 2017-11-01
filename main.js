@@ -31,7 +31,7 @@ function createChart(eventID, token, domain, performance) {
   if (!token) { token = getQueryStringParam(window.location.href, 'token'); }
   if (!eventID) { eventID = getQueryStringParam(window.location.href, 'event'); }
   if (!domain) { domain = getQueryStringParam(window.location.href, 'domain'); }
-  if (!performance) { performance = getQueryStringParam(window.location.href, 'performance'); }
+  if (!performance) { performance = getQueryStringParam(window.location.href, 'perf'); }
 
   // Create the chart widget
   // widget configuration
