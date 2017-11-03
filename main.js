@@ -7,8 +7,7 @@ var eventID = getQueryStringParam(window.location.href, 'event');
 var chart;
 
 function authAndRedirectDemo() {
-  //var url = "https://b2b.staging.ingresso.co.uk/api/b2b/";
-  var url = "http://www.test.sammba.ingresso.co.uk/api/b2b/";
+  var url = "https://b2b.staging.ingresso.co.uk/api/b2b/";
   var user = "demo";
   var password = "demopass";
   $.ajax
