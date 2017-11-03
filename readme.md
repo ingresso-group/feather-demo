@@ -110,13 +110,56 @@ When called, **goToCheckout** will contain a **transaction_uuid** property, that
 
 ## Authentication
 
-In order to purchase tickets, you need to obtain a username and password and a domain. After receiving those, you should:
+In order to reserve tickets, you need to obtain a username and password and a domain. After receiving those, you should:
 
-1) Replace the demo domain in the widget configuration object with the one you have received from us
+1) Replace the demo domain in the widget configuration object with the one you have received from us.
 
-2) Make a request to <https://yourdomain.ticketswitch.com/api/b2b>. The response will have a custom HTTP Header, **x-b2b-token**. You can then pass this token in the configuration object of the widget, which will allow it to load the domain we have created for you, and will also allow you to purchase orders based on the **transaction_uuid** value.
+
+2) Make a request to <https://yourdomain.ticketswitch.com/api/b2b> with your `username` and `password` in the `Authorization` header, as basic auth. The response will have a custom HTTP Header, **x-b2b-token**. You can then pass this token in the configuration object of the widget, which will allow it to load the domain we have created for you, and will also allow you to purchase orders based on the **transaction_uuid** value.
 
 Each authentication token has a lifetime of 4 hours and is valid for all your users, so it is advisable that you make this call ahead of time and cache the result, in order to improve the UX of your page (as opposed to making it on each page load)
+
+## Example
+
+We have a demo user set up, that allows you to create an auth token for our demo so that you can experiment with the seat chart.
+
+1) Get an Auth Token. `curl https://b2b.ingresso.co.uk/api/b2b/ -u "demo:demopass" -ik`. This will have an `X-B2B-Token` in the response header
+2) Copy paste the code below, inserting your `X-B2B-Token` into the `token` field for the `chartConfig` into a HTML file.
+```html
+<!doctype html>
+
+<html>
+  <head>
+    <style>
+      #ingresso-widget {
+        width: 500px;
+        height: 500px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="ingresso-widget"></div>
+
+    <script src="https://storage.googleapis.com/ticketswitch/feather/0.0.7/feather.min.js"></script>
+    <script>
+      var chartConfig = {
+        eventID: '7AB', // demo event
+        perfID: '7AB-4',
+        selector: '#ingresso-widget',
+        domain: 'b2b.ingresso.co.uk',
+        token: '<The-X-B2B-Token-From-Before>',
+      }
+      var chart = new IngressoSeatingPlan();
+      chart.init(chartConfig);
+    </script>
+  </body>
+</html>
+```
+3) Open the HTML file in a web browser.
+
+![Alt text](example.png?raw=true)
+
 
 ## Customisation
 

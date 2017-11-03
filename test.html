@@ -1,0 +1,29 @@
+<!doctype html>
+
+<html>
+  <head>
+    <style>
+      #ingresso-widget {
+        width: 500px;
+        height: 500px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="ingresso-widget"></div>
+
+    <script src="https://storage.googleapis.com/ticketswitch/feather/0.0.7/feather.min.js"></script>
+    <script>
+      var chartConfig = {
+        eventID: '7AB', // demo event
+        perfID: '7AB-4',
+        selector: '#ingresso-widget',
+        domain: 'b2b.ingresso.co.uk',
+        token: '962c653d8ed2ba1fc23b7298ae2fa0e3',
+      }
+      var chart = new IngressoSeatingPlan();
+      chart.init(chartConfig);
+    </script>
+  </body>
+</html>
