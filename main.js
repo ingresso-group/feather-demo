@@ -27,6 +27,18 @@ function authAndRedirectDemo() {
   });
 };
 
+$('button#select-perf').click(selectNewPerf);
+function selectNewPerf(event) {
+  var perfID = $('input#perf-id').val();
+  chart.selectPerformance(perfID);
+}
+
+$('button#add-seat').click(selectSeats);
+function selectSeats(selectSeats) {
+  var seatID = $('input#seat-id').val();
+  chart.selectSeats(seatID);
+}
+
 function createChart(eventID, token, domain, performance) {
   if (!token) { token = getQueryStringParam(window.location.href, 'token'); }
   if (!eventID) { eventID = getQueryStringParam(window.location.href, 'event'); }
@@ -36,21 +48,16 @@ function createChart(eventID, token, domain, performance) {
   // Create the chart widget
   // widget configuration
   var chartConfig = {
-    eventID: eventID, 
+    eventID: eventID,
     token: token,
     selector: '#chart-container',
     silenceWarnings: false,
     preloaderColor: '#EC008C',
     domain: domain,
+    useHTTPS: true,
   }
 
   chartConfig.perfID = performance;
-
-  $('button#select-perf').click(selectNewPerf);
-  function selectNewPerf(event) {
-    var perfID = $('input#perf-id').val();
-    chart.selectPerformance(perfID);
-  }
 
   // initialising the widget
   chart = new IngressoSeatingPlan();
