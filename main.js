@@ -95,7 +95,7 @@ function createChart(eventID, token, domain, performance) {
   $("#checkout-modal #release").click(releaseReservation);
 };
 
-if (!token || !eventID || !domain) {
+if (!domain) {
   var button = $('<button/>', {
     text: "Use Ingresso B2B Example",
     id: "auth-button",
