@@ -7,7 +7,7 @@ var eventID = getQueryStringParam(window.location.href, 'event');
 var chart;
 
 function authAndRedirectDemo() {
-  var url = "https://b2b.staging.ingresso.co.uk/api/b2b/";
+  var url = "https://b2b.ingresso.co.uk/api/b2b/";
   var user = "demo";
   var password = "demopass";
   $.ajax
@@ -22,7 +22,7 @@ function authAndRedirectDemo() {
     success: function (response, status, info) {
       var token = info.getResponseHeader('X-B2B-Token');
       $("#auth-button").hide();
-      createChart("7AB", token, "b2b.staging.ingresso.co.uk", "7AB-4");
+      createChart("7AB", token, "b2b.ingresso.co.uk", "7AB-4");
     }
   });
 };
@@ -73,6 +73,10 @@ function createChart(eventID, token, domain, performance) {
   chart.onReserveStopped = onReserveStopped;
 
   // setting a custom color scheme
+  chart.setPreloader({
+    html: '<div class="seating-plan-widget-preloader"><span class="rect rect1 bg-color-1"></span><span class="rect rect2 bg-color-1"></span><span class="rect rect3 bg-color-1"></span><span class="rect rect4 bg-color-1"></span><span class="rect rect5 bg-color-1"></span></div>',
+    css: '.seating-plan-widget-preloader-container{display: none; position:absolute;width:100%;height:100%;background-color:rgba(255,0,0,.5);user-select:none;top:0;left:0}.seating-plan-widget-preloader{width:300px;height:40px;text-align:center;font-size:10px;position:absolute;left:calc(50% - 150px);top:calc(50% - 30px)}.seating-plan-widget-preloader .rect{background-color:#333;height:100%;width:6px;display:inline-block;margin-right:3px;animation:ing-stretchdelay 1.2s infinite ease-in-out}.seating-plan-widget-preloader .rect2{animation-delay:-1.1s}.seating-plan-widget-preloader .rect3{animation-delay:-1s}.seating-plan-widget-preloader .rect4{animation-delay:-.9s}.seating-plan-widget-preloader .rect5{animation-delay:-.8s}@keyframes ing-stretchdelay{0%,100%,40%{transform:scaleY(.4)}20%{transform:scaleY(1)}}',
+  });
   chart.changeColorScheme(['#462446', '#B05F6D', '#EB6B56', '#FFC153', '#47B39D', '#CDCBA6', '#008891', '#00587A', '#ff0000', '#0F3057']);
 
   chart.showControls();
