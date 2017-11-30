@@ -142,8 +142,6 @@ function updateBasket(newBasket) {
   if(!basket) return;
 
   $('#basket .seats').empty();
-  console.log('updateBasket() basket = ', basket);
-  console.log('updateBasket() legend = ', availability.legend);
   var total = 0;
   basket.seats.forEach(function(seat) {
     var seatPrice = availability.legend[seat.legend].seatprice + availability.legend[seat.legend].surcharge;
