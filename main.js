@@ -107,7 +107,9 @@ function changeLegend() {
   var newLegend = JSON.parse(JSON.stringify(availability.legend));
   newLegend = newLegend.map(function(legendItem, index) {
     legendItem.original_seatprice /= 2;
+    legendItem.original_surcharge /= 2;
     legendItem.seatprice /= 2;
+    legendItem.surcharge /= 2;
     legendItem.price /= 2;
     legendItem.savingsMessage = 'legend ' + index;
     return legendItem;
