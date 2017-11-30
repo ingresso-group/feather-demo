@@ -152,7 +152,7 @@ function updateBasket(newBasket) {
     var seatElement = $("<p class='item' id='" + seat.uuid + "'> </p>");
     seatElement.append("<span class='color-code' style='border-color: " + colors[seat.legend].selected + "; background-color:" + colors[seat.legend].normal + "'></span>")
     seatElement.append("<span class='description'>" + availability.seat_blocks[seat.seat_block].desc + "</span>")
-    seatElement.append("<span class='price'>" + getFormattedPrice(availability.legend[seat.legend].seatprice + availability.legend[seat.legend].seatprice, availability.currency) + "</span>")
+    seatElement.append("<span class='price'>" + getFormattedPrice(availability.legend[seat.legend].seatprice + availability.legend[seat.legend].surcharge, availability.currency) + "</span>")
     seatElement.append("<span class='remove-seat' data-seat-id='"+seat.uuid+"'><i class='fa fa-trash'></i></span>")
     seatElement.append("<br>");
     seatElement.append("<span style='margin-left: 18px;' class='id'> Seat: " + seat.seat_id + "</span>")
