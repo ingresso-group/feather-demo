@@ -114,6 +114,13 @@ It's enough to call the **reserve** method on the library, which will start the 
 
 When called, **goToCheckout** will contain a **transaction_uuid** property, that represents a unique identifier assigned to that specific order. You can then go on to reserve that order, based on the token, via the Ingresso API.
 
+	Note: the seats requested by the user might become unavailable in the meantime
+
+If the requested seats happen to have become unavailable before the user can reserve them, the widget will display a modal window giving the user a choice between going back and selecting other seats manually or going through with a pre-selected set of seats recommended by our system. 
+
+* If they choose to select different seats manually, the modal closes and the initially-selected seats drop off the seating map.
+* If they choose to proceed with the recommended seats, the modal will also close and the app will make a reservation call for the new seats. When this process finishes, the newly-created reservation will be for the recommended seats, which you can then display on your checkout page (or anywhere you choose).
+
 ## Authentication
 
 In order to reserve tickets, you need to obtain a username and password and a domain. After receiving those, you should:
