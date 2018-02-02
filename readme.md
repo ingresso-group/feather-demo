@@ -121,6 +121,11 @@ If the requested seats happen to have become unavailable before the user can res
 * If they choose to select different seats manually, the modal closes and the initially-selected seats drop off the seating map.
 * If they choose to proceed with the recommended seats, the modal will also close and the app will make a reservation call for the new seats. When this process finishes, the newly-created reservation will be for the recommended seats, which you can then display on your checkout page (or anywhere you choose).
 
+## Releasing Seats
+
+You just need to call the **release** method on the library. This will immediately release the seats for the current transaction stored in the user's session. Note that the seats can sometimes take some time to become available again on the seating plan - even though our API releases the seats immediately there is some short-term caching of availability (of around 60 seconds).
+
+
 ## Authentication
 
 In order to reserve tickets, you need to obtain a username and password and a domain. After receiving those, you should:
