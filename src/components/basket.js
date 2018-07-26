@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import Seat from "components/seat";
+
 export default class Basket extends Component {
   constructor(props) {
     super(props);
@@ -15,13 +17,14 @@ export default class Basket extends Component {
     this.props.basket.seatBundles.forEach(bundle => {
       bundle.seats.forEach(seat => {
         seats.push(
-          <li key={seat.uuid}>
-            {bundle.ticket_type_code} - {seat.seat_id}
-            <i
-              className="fa fa-close remove"
-              onClick={e => this.props.removeSeat(seat.uuid)}
-            />
-          </li>
+          <Seat
+            key={seat.uuid}
+            bundle={bundle}
+            seat={seat}
+            legendItem={this.props.availability.legend[seat.legend]}
+            currency={this.props.availability.currency}
+            block={this.props.availability.seat_blocks[seat.seat_block]}
+          />
         );
       });
     });
@@ -38,7 +41,7 @@ export default class Basket extends Component {
       basketIsActive = true;
     }
 
-    console.log("basket() seats: ", this.props.basket);
+    console.log("basket() availability: ", this.props.availability);
     return (
       <div className="basket">
         <p className={`header ${basketIsActive ? "active" : ""}`}>

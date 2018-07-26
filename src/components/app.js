@@ -8,15 +8,21 @@ export default class App extends Component {
     super(props);
     this.state = {
       basket: {},
+      availability: {},
     };
 
     this.chart = null;
 
+    // Own class methods
+    this.initFeather = this.initFeather.bind(this);
+
+    // Feather imperative methods
     this.removeSeat = this.removeSeat.bind(this);
 
+    // Feather callbacks
     this.onAddSeat = this.onAddSeat.bind(this);
     this.onRemoveSeat = this.onRemoveSeat.bind(this);
-    this.initFeather = this.initFeather.bind(this);
+    this.onNewAvailabilityData = this.onNewAvailabilityData.bind(this);
   }
 
   componentDidMount() {
@@ -43,7 +49,7 @@ export default class App extends Component {
     // chart.onEmptyBasket = emptyBasket;
     // chart.onSeatsReserved = seatsReserved;
     // chart.onGoToCheckout = goToCheckout;
-    // chart.onNewAvailabilityData = onNewAvailabilityData;
+    this.chart.onNewAvailabilityData = this.onNewAvailabilityData;
     // chart.onNewLegendColors = onNewLegendColors;
     // chart.onReserveStopped = onReserveStopped;
     // chart.onNewSendMethodsData = onNewSendMethodsData;
@@ -59,6 +65,11 @@ export default class App extends Component {
     this.setState({ basket: event.basket });
   }
 
+  onNewAvailabilityData(event) {
+    console.log(event);
+    this.setState({ availability: event.availability });
+  }
+
   removeSeat(seatUUID) {
     this.chart.removeSeat(seatUUID);
   }
@@ -69,7 +80,11 @@ export default class App extends Component {
         <Sidebar />
         <div className="main-content">
           <div className="feather-container" />
-          <Basket basket={this.state.basket} removeSeat={this.removeSeat} />
+          <Basket
+            basket={this.state.basket}
+            removeSeat={this.removeSeat}
+            availability={this.state.availability}
+          />
         </div>
       </div>
     );
