@@ -28,6 +28,7 @@ export default class Basket extends Component {
             legendItem={this.props.availability.legend[seat.legend]}
             currency={this.props.availability.currency}
             block={this.props.availability.seat_blocks[seat.seat_block]}
+            onClick={this.props.onSeatClick}
           />
         );
       });
@@ -99,11 +100,18 @@ export default class Basket extends Component {
     }
     let classNameStr = classNames.join(" ");
 
+    let headerMessage = "Your order summary: ";
+    let headerSubMessage = null;
+    if (this.props.concessions && this.props.concessions.length > 0) {
+      headerSubMessage = "(discounts available, click on a seat for more info)";
+    }
+
     return (
       <div className={classNameStr}>
         <div>
           <BasketHeader
-            message="Your order summary"
+            message={headerMessage}
+            subMessage={headerSubMessage}
             icon="shopping-basket"
             button={this.displayProceedButton()}
           />

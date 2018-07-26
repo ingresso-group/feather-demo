@@ -23,6 +23,14 @@
     font-weight: 500;
     position: relative;
 
+    .subtitle {
+      display: block;
+      margin-left: 25px;
+      font-size: 0.85em;
+      opacity: 0.7;
+      letter-spacing: 1px;
+    }
+
     i {
       margin-right: 10px;
     }
@@ -82,7 +90,12 @@
     margin-top: 5px;
 
     li {
+      cursor: pointer;
       .item;
+
+      &:hover {
+        background-color: @color-base-b;
+      }
 
       .description {
         opacity: 0.7;
@@ -169,18 +182,5 @@
         }
       }
     }
-  }
-
-  // this is a mix-in
-  .item {
-    background-color: @color-base;
-    margin: 5px;
-    margin-left: 0;
-    padding: 5px 25px;
-    border-radius: 50px;
-    display: inline-block;
-    border: 1px solid @color-accent-2-b;
-    font-size: 0.8em;
-    font-weight: 700;
   }
 }

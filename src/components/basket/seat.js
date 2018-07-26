@@ -17,7 +17,7 @@ export default class Seat extends Component {
     let formattedPrice = getFormattedPrice(legendItem.price, currency);
 
     return (
-      <li>
+      <li onClick={this.props.onClick}>
         <span className="description">
           {block.desc} {seat.seat_id} -{" "}
         </span>{" "}

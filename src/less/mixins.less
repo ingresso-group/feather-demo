@@ -1,0 +1,22 @@
+.item {
+  background-color: @color-base;
+  margin: 5px;
+  margin-left: 0;
+  padding: 5px 25px;
+  border-radius: 50px;
+  display: inline-block;
+  border: 1px solid @color-accent-2-b;
+  font-size: 0.8em;
+  font-weight: 700;
+}
+
+.item-interactive {
+  .item;
+  cursor: pointer;
+
+  &:hover,
+  &.selected {
+    background-color: @color-accent-2-b;
+    color: @color-base;
+  }
+}

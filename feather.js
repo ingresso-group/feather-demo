@@ -11,7 +11,7 @@ function IngressoSeatingPlan() {
       "EMPTY_BASKET",
       "GO_TO_CHECKOUT",
       "NEW_AVAILABILITY_DATA",
-      "NEW_CONCESSION_DATA",
+      "NEW_CONCESSIONS_DATA",
       "NEW_SEND_METHODS_DATA",
       "NEW_LEGEND_COLORS",
       "RESERVE_STOPPED",

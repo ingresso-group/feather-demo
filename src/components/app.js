@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import Basket from "components/basket/basket";
 import Sidebar from "components/sidebar";
+import Concessions from "components/concessions";
 
 export default class App extends Component {
   constructor(props) {
@@ -12,23 +13,29 @@ export default class App extends Component {
       basketExpanded: false,
       sendMethods: null,
       selectedMethod: null,
+      concessions: null,
+      concessionsIsOpen: false,
     };
 
     this.chart = null;
 
     // Own class methods
     this.initFeather = this.initFeather.bind(this);
+    this.onSeatClick = this.onSeatClick.bind(this);
+    this.displayConcessions = this.displayConcessions.bind(this);
 
     // Feather imperative methods
     this.removeSeat = this.removeSeat.bind(this);
     this.selectSendMethod = this.selectSendMethod.bind(this);
     this.reserveSeats = this.reserveSeats.bind(this);
+    this.selectConcession = this.selectConcession.bind(this);
 
     // Feather callbacks
     this.onAddSeat = this.onAddSeat.bind(this);
     this.onRemoveSeat = this.onRemoveSeat.bind(this);
     this.onNewAvailabilityData = this.onNewAvailabilityData.bind(this);
     this.onNewSendMethodsData = this.onNewSendMethodsData.bind(this);
+    this.onNewConcessionsData = this.onNewConcessionsData.bind(this);
   }
 
   componentDidMount() {
@@ -58,9 +65,15 @@ export default class App extends Component {
     this.chart.onNewAvailabilityData = this.onNewAvailabilityData;
     // this.chart.onNewLegendColors = this.onNewLegendColors;
     // this.chart.onReserveStopped = this.onReserveStopped;
+    this.chart.onNewConcessionsData = this.onNewConcessionsData;
     this.chart.onNewSendMethodsData = this.onNewSendMethodsData;
     // this.chart.onEvent = this.onEvent;
     this.chart.init(chartConfig);
+  }
+
+  onSeatClick(e) {
+    console.log("onSeatClick()");
+    this.setState({ concessionsIsOpen: true });
   }
 
   onAddSeat(event) {
@@ -79,6 +92,11 @@ export default class App extends Component {
   onNewSendMethodsData(event) {
     console.log(event);
     this.setState({ sendMethods: event.sendMethods });
+  }
+
+  onNewConcessionsData(event) {
+    console.log("onNewConcessionsData() event = ", event);
+    this.setState({ concessions: event.concessions });
   }
 
   removeSeat(seatUUID) {
@@ -106,6 +124,24 @@ export default class App extends Component {
     console.log("onSeatsReserved() event = ", event);
   }
 
+  displayConcessions() {
+    if (!this.state.concessionsIsOpen) {
+      return null;
+    }
+
+    return (
+      <Concessions
+        items={this.state.concessions}
+        currency={this.state.availability.currency}
+        onItemSelected={this.props.selectConcession}
+      />
+    );
+  }
+
+  selectConcession(item) {
+    console.log("selectConcession() item = ", item);
+  }
+
   render() {
     let featherClassNames = "";
     if (this.state.basketExpanded) {
@@ -118,18 +154,23 @@ export default class App extends Component {
         <div className="main-content">
           <div className={`feather-container ${featherClassNames}`} />
           <Basket
+            // data
             basket={this.state.basket}
-            removeSeat={this.removeSeat}
             availability={this.state.availability}
             sendMethods={this.state.sendMethods}
             expanded={this.state.basketExpanded}
-            openBasket={() => this.setState({ basketExpanded: true })}
-            closeBasket={() => this.setState({ basketExpanded: false })}
+            concessions={this.state.concessions}
             selectSendMethod={this.selectSendMethod}
             selectedMethod={this.state.selectedMethod}
+            // callbacks
+            openBasket={() => this.setState({ basketExpanded: true })}
+            closeBasket={() => this.setState({ basketExpanded: false })}
             reserveSeats={this.reserveSeats}
+            removeSeat={this.removeSeat}
+            onSeatClick={this.onSeatClick}
           />
         </div>
+        {this.displayConcessions()}
       </div>
     );
   }

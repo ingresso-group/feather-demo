@@ -13,6 +13,7 @@ export default class BasketHeader extends Component {
           {this.props.message}
           {this.props.button}
         </span>
+        <span className="subtitle">{this.props.subMessage}</span>
       </div>
     );
   }
