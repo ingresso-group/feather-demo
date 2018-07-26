@@ -1,6 +1,26 @@
-@import "simple-grid.min.css";
+@import "simple-grid.css";
 @import "variables";
+@import "colors";
+@import "sidebar";
+@import "basket";
+
+.main-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  background-color: @color-base-b;
+}
+
+.main-content {
+  width: 100%;
+}
 
 .feather-container {
-  height: 500px;
+  height: ~"calc(100vh - 200px)";
+}
+
+ul {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
 }

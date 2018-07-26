@@ -1,0 +1,63 @@
+.sidebar {
+  width: 300px;
+  background-color: @color-base;
+  text-align: center;
+  padding-top: 20px;
+
+  .icon-feather path {
+    color: @color-accent-2-b;
+  }
+
+  ul {
+    li {
+      font-size: 0.85em;
+      border-top: 2px solid @color-base-b;
+      border-bottom: 2px solid @color-base-b;
+      color: @color-alternative;
+      opacity: 0.35;
+      margin-top: -2px;
+      padding-top: 15px;
+      padding-bottom: 15px;
+      position: relative;
+      cursor: pointer;
+      transition: background-color 300ms;
+      text-align: left;
+      font-weight: 700;
+
+      i {
+        margin-right: 10px;
+        margin-left: 30px;
+        font-size: 1.4em;
+        vertical-align: middle;
+      }
+
+      &:hover {
+        background-color: @color-base-b;
+      }
+
+      &.selected {
+        opacity: 1;
+
+        i {
+          background: -webkit-linear-gradient(
+            @color-accent-1,
+            @color-accent-1-b
+          );
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+        &:after {
+          content: "";
+          width: 4px;
+          position: absolute;
+          height: 100%;
+          left: 0;
+          top: 0;
+          background-color: @color-accent-2;
+
+          .gradient-vertical-1;
+        }
+      }
+    }
+  }
+}

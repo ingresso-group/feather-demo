@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 
 import FeatherContainer from "components/feather_container";
+import Basket from "components/basket";
+import Sidebar from "components/sidebar";
 
 export default class App extends Component {
   constructor(props) {
@@ -9,13 +11,11 @@ export default class App extends Component {
 
   render() {
     return (
-      <div className="container">
-        <FeatherContainer />
-        <div className="row">
-          <div className="col-3-sm">blue</div>
-          <div className="col-3-sm">red</div>
-          <div className="col-3-sm">pink</div>
-          <div className="col-3-sm">green</div>
+      <div className="main-container">
+        <Sidebar />
+        <div className="main-content">
+          <FeatherContainer />
+          <Basket />
         </div>
       </div>
     );
