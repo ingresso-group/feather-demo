@@ -1,15 +1,68 @@
 .basket {
-  height: 200px;
+  height: 180px;
+  margin-top: 10px;
+  background-color: @color-base-b;
+  padding-left: 20px;
+  padding-right: 20px;
 
   .header {
-    margin-left: 20px;
     background-color: @color-base;
-    color: @color-accent-2-b;
+    color: @color-alternative;
+    // border: 1px solid @color-accent-2-b;
+    border: 1px solid @color-base;
     display: inline-block;
     padding: 5px 20px;
     border-radius: 50px;
     letter-spacing: 1px;
     font-size: 1em;
     font-weight: 500;
+    opacity: 0.5;
+    font-size: 0.85em;
+    font-weight: 500;
+
+    &.active {
+      opacity: 1;
+    }
+
+    i {
+      margin-right: 10px;
+    }
+  }
+
+  .seats {
+    margin: 0;
+
+    li {
+      background-color: @color-base;
+      margin: 10px;
+      margin-left: 0;
+      padding: 5px 25px;
+      border-radius: 50px;
+      display: inline-block;
+
+      .remove {
+        margin-left: 10px;
+        margin-right: -15px;
+        margin-left: 20px;
+        border: 1px solid @color-alternative;
+        border-radius: 50%;
+        width: 17px;
+        height: 17px;
+        position: relative;
+        top: -1px;
+        text-align: center;
+        font-size: 0.8em;
+        line-height: 17px;
+        opacity: 0.25;
+        cursor: pointer;
+        transition: all 300ms;
+
+        &:hover {
+          background-color: @color-alternative;
+          color: @color-base;
+          opacity: 1;
+        }
+      }
+    }
   }
 }
