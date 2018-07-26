@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import Seat from "components/basket/seat";
-import SendMethods from "components/basket/send_methods";
+import SendMethods from "components/basket/send_methods.js";
 import BasketHeader from "components/basket/basket_header";
 
 export default class Basket extends Component {
@@ -40,12 +40,26 @@ export default class Basket extends Component {
       return null;
     }
 
+    let reserveClassNames = "reserve";
+    if (this.props.selectedMethod) {
+      reserveClassNames += " enabled";
+    }
+
     return (
       <div className="part-2">
         <BasketHeader
           message="How do you want to receive your tickets?"
           icon="paper-airplane"
         />
+        <SendMethods
+          methods={this.props.sendMethods}
+          currency={this.props.availability.currency}
+          selectSendMethod={this.props.selectSendMethod}
+          selectedMethod={this.props.selectedMethod}
+        />
+        <button className={reserveClassNames} onClick={this.props.reserveSeats}>
+          Reserve
+        </button>
       </div>
     );
   }

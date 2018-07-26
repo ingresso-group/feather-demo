@@ -45,21 +45,44 @@
     pointer-events: none;
   }
 
+  .reserve {
+    color: @color-alternative;
+    background-color: transparent;
+    opacity: 0.2;
+    background-color: transparent;
+    padding: 9px 20px;
+    border-radius: 50px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    font-size: 1em;
+    cursor: pointer;
+    border: 1px dashed @color-alternative;
+    width: 50%;
+    max-width: 300px;
+    margin: 0 auto;
+    margin-top: 30px;
+    display: block;
+
+    &.enabled {
+      border: 2px solid @color-accent-1;
+      color: @color-accent-1;
+      // border-width: 2px;
+      font-weight: 500;
+      opacity: 1;
+
+      &:hover {
+        background-color: @color-accent-1;
+        color: @color-base;
+      }
+    }
+  }
+
   .seats {
     margin: 0;
     margin-top: 5px;
 
     li {
-      background-color: @color-base;
-      margin: 5px;
-      margin-left: 0;
-      padding: 5px 25px;
-      border-radius: 50px;
-      display: inline-block;
-      border: 1px solid @color-accent-2-b;
-
-      font-size: 0.8em;
-      font-weight: 700;
+      .item;
 
       .description {
         opacity: 0.7;
@@ -119,5 +142,45 @@
 
   &.expanded {
     height: 100%;
+  }
+
+  .send-methods {
+    li {
+      .item;
+      display: block;
+      margin-bottom: 10px;
+      cursor: pointer;
+
+      .description {
+        margin-right: 5px;
+      }
+      .cost {
+        margin-left: 5px;
+      }
+
+      &.selected,
+      &:hover {
+        background-color: @color-accent-2-b;
+        color: @color-base;
+
+        .description,
+        .cost {
+          color: @color-base;
+        }
+      }
+    }
+  }
+
+  // this is a mix-in
+  .item {
+    background-color: @color-base;
+    margin: 5px;
+    margin-left: 0;
+    padding: 5px 25px;
+    border-radius: 50px;
+    display: inline-block;
+    border: 1px solid @color-accent-2-b;
+    font-size: 0.8em;
+    font-weight: 700;
   }
 }

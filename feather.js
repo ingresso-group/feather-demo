@@ -195,8 +195,8 @@ function IngressoSeatingPlan() {
     Chart.addEventToQueue("SET_LEGEND", newLegend);
   };
 
-  Chart.selectSendMethod = function(methodIndex) {
-    Chart.addEventToQueue("SELECT_SEND_METHOD", methodIndex);
+  Chart.selectSendMethod = function(methodCode) {
+    Chart.addEventToQueue("SELECT_SEND_METHOD", methodCode);
   };
 
   Chart.addEventToQueue = function(eventName, eventData) {

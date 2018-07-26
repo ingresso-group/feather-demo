@@ -10,6 +10,8 @@ export default class App extends Component {
       basket: {},
       availability: {},
       basketExpanded: false,
+      sendMethods: null,
+      selectedMethod: null,
     };
 
     this.chart = null;
@@ -19,11 +21,14 @@ export default class App extends Component {
 
     // Feather imperative methods
     this.removeSeat = this.removeSeat.bind(this);
+    this.selectSendMethod = this.selectSendMethod.bind(this);
+    this.reserveSeats = this.reserveSeats.bind(this);
 
     // Feather callbacks
     this.onAddSeat = this.onAddSeat.bind(this);
     this.onRemoveSeat = this.onRemoveSeat.bind(this);
     this.onNewAvailabilityData = this.onNewAvailabilityData.bind(this);
+    this.onNewSendMethodsData = this.onNewSendMethodsData.bind(this);
   }
 
   componentDidMount() {
@@ -47,14 +52,14 @@ export default class App extends Component {
     // subscribing to events
     this.chart.onAddSeat = this.onAddSeat;
     this.chart.onRemoveSeat = this.onRemoveSeat;
-    // chart.onEmptyBasket = emptyBasket;
-    // chart.onSeatsReserved = seatsReserved;
-    // chart.onGoToCheckout = goToCheckout;
+    // this.chart.onEmptyBasket = this.emptyBasket;
+    this.chart.onSeatsReserved = this.onSeatsReserved;
+    this.chart.onGoToCheckout = this.onGoToCheckout;
     this.chart.onNewAvailabilityData = this.onNewAvailabilityData;
-    // chart.onNewLegendColors = onNewLegendColors;
-    // chart.onReserveStopped = onReserveStopped;
-    // chart.onNewSendMethodsData = onNewSendMethodsData;
-    // chart.onEvent = onEvent;
+    // this.chart.onNewLegendColors = this.onNewLegendColors;
+    // this.chart.onReserveStopped = this.onReserveStopped;
+    this.chart.onNewSendMethodsData = this.onNewSendMethodsData;
+    // this.chart.onEvent = this.onEvent;
     this.chart.init(chartConfig);
   }
 
@@ -71,8 +76,34 @@ export default class App extends Component {
     this.setState({ availability: event.availability });
   }
 
+  onNewSendMethodsData(event) {
+    console.log(event);
+    this.setState({ sendMethods: event.sendMethods });
+  }
+
   removeSeat(seatUUID) {
     this.chart.removeSeat(seatUUID);
+  }
+
+  selectSendMethod(methodCode) {
+    this.chart.selectSendMethod(methodCode);
+    console.log("selectSendMethod() methodCode = ", methodCode);
+    this.setState({ selectedMethod: methodCode });
+  }
+
+  reserveSeats() {
+    this.chart.reserve();
+  }
+
+  goToCheckout(event) {
+    console.log("goToCheckout() event = ", event);
+  }
+
+  onGoToCheckout(event) {
+    console.log("onGoToCheckout() event = ", event);
+  }
+  onSeatsReserved(event) {
+    console.log("onSeatsReserved() event = ", event);
   }
 
   render() {
@@ -90,9 +121,13 @@ export default class App extends Component {
             basket={this.state.basket}
             removeSeat={this.removeSeat}
             availability={this.state.availability}
+            sendMethods={this.state.sendMethods}
             expanded={this.state.basketExpanded}
             openBasket={() => this.setState({ basketExpanded: true })}
             closeBasket={() => this.setState({ basketExpanded: false })}
+            selectSendMethod={this.selectSendMethod}
+            selectedMethod={this.state.selectedMethod}
+            reserveSeats={this.reserveSeats}
           />
         </div>
       </div>
