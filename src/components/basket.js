@@ -41,13 +41,17 @@ export default class Basket extends Component {
       basketIsActive = true;
     }
 
-    console.log("basket() availability: ", this.props.availability);
     return (
-      <div className="basket">
-        <p className={`header ${basketIsActive ? "active" : ""}`}>
-          <i className="fa fa-shopping-basket" />
-          Your order summary
-        </p>
+      <div className={`basket ${basketIsActive ? "active" : ""}`}>
+        <div>
+          <div className="header">
+            <span class="title">
+              <i className="fa fa-shopping-basket" />
+              Your order summary
+            </span>
+            <button class="reserve">Reserve seats</button>
+          </div>
+        </div>
         <ul className="seats">{this.displaySeats()}</ul>
       </div>
     );

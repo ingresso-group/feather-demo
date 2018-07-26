@@ -1,16 +1,16 @@
 .basket {
-  height: 180px;
+  height: 250px;
   margin-top: 10px;
   background-color: @color-base-b;
   padding-left: 20px;
   padding-right: 20px;
+  padding-top: 15px;
 
   .header {
     background-color: @color-base;
     color: @color-alternative;
     border: 1px solid @color-base;
-    display: inline-block;
-    padding: 5px 20px;
+    padding: 12px 20px;
     border-radius: 50px;
     letter-spacing: 1px;
     font-size: 1em;
@@ -18,22 +18,37 @@
     opacity: 0.5;
     font-size: 0.85em;
     font-weight: 500;
-
-    &.active {
-      opacity: 1;
-    }
+    position: relative;
 
     i {
       margin-right: 10px;
     }
   }
 
+  .reserve {
+    border: 1px dashed @color-alternative;
+    color: @color-alternative;
+    opacity: 0.3;
+    background-color: transparent;
+    padding: 6px 20px;
+    border-radius: 50px;
+    letter-spacing: 1px;
+    font-size: 0.9em;
+    cursor: pointer;
+    position: absolute;
+    transform: translate(0, -50%);
+    right: 20px;
+    top: 50%;
+    pointer-events: none;
+  }
+
   .seats {
     margin: 0;
+    margin-top: 5px;
 
     li {
       background-color: @color-base;
-      margin: 10px;
+      margin: 5px;
       margin-left: 0;
       padding: 5px 25px;
       border-radius: 50px;
@@ -74,6 +89,23 @@
           color: @color-base;
           opacity: 1;
         }
+      }
+    }
+  }
+
+  &.active {
+    .header {
+      opacity: 1;
+    }
+    .reserve {
+      border: 1px solid @color-accent-2-b;
+      color: @color-accent-2-b;
+      opacity: 1;
+      pointer-events: all;
+
+      &:hover {
+        background-color: @color-accent-2-b;
+        color: @color-base;
       }
     }
   }
