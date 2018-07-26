@@ -17,7 +17,13 @@
 }
 
 .feather-container {
-  height: ~"calc(100vh - 270px)";
+  height: ~"calc(100vh - 160px)";
+  transition: 600ms;
+  transition-timing-function: ease-in-out;
+
+  &.minimised {
+    height: 0;
+  }
 }
 
 ul {
@@ -28,4 +34,8 @@ ul {
 
 iframe {
   border: 0 !important;
+}
+
+button {
+  outline: 0;
 }

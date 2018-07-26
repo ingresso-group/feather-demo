@@ -1,10 +1,13 @@
 .basket {
-  height: 250px;
+  height: 120px;
   margin-top: 10px;
   background-color: @color-base-b;
   padding-left: 20px;
   padding-right: 20px;
   padding-top: 15px;
+  overflow: auto;
+  transition: 600ms;
+  transition-timing-function: ease-in-out;
 
   .header {
     background-color: @color-base;
@@ -25,7 +28,7 @@
     }
   }
 
-  .reserve {
+  .proceed {
     border: 1px dashed @color-alternative;
     color: @color-alternative;
     opacity: 0.3;
@@ -93,11 +96,15 @@
     }
   }
 
+  .part-2 {
+    margin-top: 10px;
+  }
+
   &.active {
     .header {
       opacity: 1;
     }
-    .reserve {
+    .proceed {
       border: 1px solid @color-accent-2-b;
       color: @color-accent-2-b;
       opacity: 1;
@@ -108,5 +115,9 @@
         color: @color-base;
       }
     }
+  }
+
+  &.expanded {
+    height: 100%;
   }
 }

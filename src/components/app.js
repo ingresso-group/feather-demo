@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import Basket from "components/basket";
+import Basket from "components/basket/basket";
 import Sidebar from "components/sidebar";
 
 export default class App extends Component {
@@ -9,6 +9,7 @@ export default class App extends Component {
     this.state = {
       basket: {},
       availability: {},
+      basketExpanded: false,
     };
 
     this.chart = null;
@@ -75,15 +76,23 @@ export default class App extends Component {
   }
 
   render() {
+    let featherClassNames = "";
+    if (this.state.basketExpanded) {
+      featherClassNames = "minimised";
+    }
+
     return (
       <div className="main-container">
         <Sidebar />
         <div className="main-content">
-          <div className="feather-container" />
+          <div className={`feather-container ${featherClassNames}`} />
           <Basket
             basket={this.state.basket}
             removeSeat={this.removeSeat}
             availability={this.state.availability}
+            expanded={this.state.basketExpanded}
+            openBasket={() => this.setState({ basketExpanded: true })}
+            closeBasket={() => this.setState({ basketExpanded: false })}
           />
         </div>
       </div>
