@@ -14,14 +14,33 @@ export default class Seat extends Component {
     const currency = this.props.currency;
     const legendItem = this.props.legendItem;
 
-    let formattedPrice = getFormattedPrice(legendItem.price, currency);
+    let label = `${block.desc} ${seat.seat_id} - `;
+    let formattedPrice;
+    let selectedConcessionIndex = null;
+
+    if (seat.concessions && seat.concessions.length) {
+      seat.concessions.forEach((concession, index) => {
+        if (concession.code === seat.selectedConcession.code) {
+          selectedConcessionIndex = index;
+        }
+      });
+    }
+
+    if (selectedConcessionIndex) {
+      formattedPrice = getFormattedPrice(
+        seat.selectedConcession.seatprice + seat.selectedConcession.surcharge,
+        currency
+      );
+      label += `${formattedPrice} (${seat.selectedConcession.description})`;
+    } else {
+      formattedPrice = getFormattedPrice(legendItem.price, currency);
+      label += formattedPrice;
+    }
 
     return (
-      <li onClick={this.props.onClick}>
-        <span className="description">
-          {block.desc} {seat.seat_id} -{" "}
-        </span>{" "}
-        <span className="price">{formattedPrice}</span>
+      <li onClick={e => this.props.onClick(e, seat)}>
+        <span className="description">{label}</span>{" "}
+        {/* <span className="price">{formattedPrice}</span> */}
         <i
           className="fa fa-close remove"
           onClick={e => this.props.removeSeat(seat.uuid)}

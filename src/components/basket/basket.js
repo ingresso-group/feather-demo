@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import { getFormattedPrice } from "utils/utils";
+
 import Seat from "components/basket/seat";
 import SendMethods from "components/basket/send_methods.js";
 import BasketHeader from "components/basket/basket_header";
@@ -100,7 +102,21 @@ export default class Basket extends Component {
     }
     let classNameStr = classNames.join(" ");
 
-    let headerMessage = "Your order summary: ";
+    let formattedTotal;
+
+    if (this.props.basket && this.props.basket.hasOwnProperty("total")) {
+      formattedTotal = getFormattedPrice(
+        this.props.basket.total,
+        this.props.availability.currency
+      );
+    }
+
+    console.log("this.props = ", this.props);
+
+    let headerMessage = `Your order summary`;
+    if (formattedTotal) {
+      headerMessage += ` (${formattedTotal})`;
+    }
     let headerSubMessage = null;
     if (this.props.concessions && this.props.concessions.length > 0) {
       headerSubMessage = "(discounts available, click on a seat for more info)";

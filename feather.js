@@ -1,5 +1,4 @@
 function IngressoSeatingPlan() {
-  console.log("me");
   var Chart = {
     initialised: false,
     eventQueue: [],
@@ -11,10 +10,11 @@ function IngressoSeatingPlan() {
       "EMPTY_BASKET",
       "GO_TO_CHECKOUT",
       "NEW_AVAILABILITY_DATA",
-      "NEW_CONCESSIONS_DATA",
+      "UPDATE_CONCESSIONS",
       "NEW_SEND_METHODS_DATA",
       "NEW_LEGEND_COLORS",
       "RESERVE_STOPPED",
+      "UPDATE_BASKET",
       "404",
     ],
     preloaderContainer: null,
@@ -197,6 +197,13 @@ function IngressoSeatingPlan() {
 
   Chart.selectSendMethod = function(methodCode) {
     Chart.addEventToQueue("SELECT_SEND_METHOD", methodCode);
+  };
+
+  Chart.selectConcession = function(seatUUID, concessionCode) {
+    Chart.addEventToQueue("SELECT_CONCESSION", {
+      seatUUID: seatUUID,
+      concessionCode: concessionCode,
+    });
   };
 
   Chart.addEventToQueue = function(eventName, eventData) {

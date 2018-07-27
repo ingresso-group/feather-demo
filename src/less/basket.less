@@ -1,5 +1,5 @@
 .basket {
-  height: 120px;
+  height: 160px;
   margin-top: 10px;
   background-color: @color-base-b;
   padding-left: 20px;
@@ -72,15 +72,19 @@
     display: block;
 
     &.enabled {
+      // border: 2px solid @color-accent-1;
+      // color: @color-accent-1;
+      background-color: @color-accent-1;
       border: 2px solid @color-accent-1;
-      color: @color-accent-1;
+      color: @color-base;
       // border-width: 2px;
       font-weight: 500;
       opacity: 1;
 
       &:hover {
-        background-color: @color-accent-1;
-        color: @color-base;
+        // background-color: @color-accent-1;
+        // color: @color-base;
+        opacity: 0.7;
       }
     }
   }
@@ -98,8 +102,7 @@
       }
 
       .description {
-        opacity: 0.7;
-        font-weight: 500;
+        font-weight: 700;
       }
 
       .remove {
@@ -141,14 +144,22 @@
       opacity: 1;
     }
     .proceed {
+      color: @color-base;
+      background-color: @color-accent-2-b;
       border: 1px solid @color-accent-2-b;
-      color: @color-accent-2-b;
       opacity: 1;
       pointer-events: all;
+      z-index: 1;
 
       &:hover {
-        background-color: @color-accent-2-b;
-        color: @color-base;
+        // background-color: @color-accent-2;
+        // border: 1px solid @color-accent-2;
+        opacity: 0.7;
+
+        // background-color: @color-accent-2-b;
+        // color: @color-base;
+        // color: @color-accent-2-b;
+        // background-color: @color-base;
       }
     }
   }
@@ -160,7 +171,11 @@
   .send-methods {
     li {
       .item;
+      border-color: @color-alternative;
+      color: @color-alternative;
       display: block;
+      opacity: 0.7;
+      font-weight: 400;
       margin-bottom: 10px;
       cursor: pointer;
 
@@ -173,12 +188,16 @@
 
       &.selected,
       &:hover {
-        background-color: @color-accent-2-b;
-        color: @color-base;
+        border-color: @color-accent-2-b;
+        color: @color-alternative;
+        font-weight: 700;
+        opacity: 1;
+        // background-color: @color-accent-2-b;
+        // color: @color-base;
 
         .description,
         .cost {
-          color: @color-base;
+          color: @color-alternative;
         }
       }
     }

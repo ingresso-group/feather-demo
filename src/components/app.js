@@ -14,6 +14,7 @@ export default class App extends Component {
       sendMethods: null,
       selectedMethod: null,
       concessions: null,
+      highlightedSeat: null,
       concessionsIsOpen: false,
     };
 
@@ -23,6 +24,7 @@ export default class App extends Component {
     this.initFeather = this.initFeather.bind(this);
     this.onSeatClick = this.onSeatClick.bind(this);
     this.displayConcessions = this.displayConcessions.bind(this);
+    this.hideConcessions = this.hideConcessions.bind(this);
 
     // Feather imperative methods
     this.removeSeat = this.removeSeat.bind(this);
@@ -35,7 +37,8 @@ export default class App extends Component {
     this.onRemoveSeat = this.onRemoveSeat.bind(this);
     this.onNewAvailabilityData = this.onNewAvailabilityData.bind(this);
     this.onNewSendMethodsData = this.onNewSendMethodsData.bind(this);
-    this.onNewConcessionsData = this.onNewConcessionsData.bind(this);
+    this.onUpdateConcessions = this.onUpdateConcessions.bind(this);
+    this.onUpdateBasket = this.onUpdateBasket.bind(this);
   }
 
   componentDidMount() {
@@ -65,19 +68,18 @@ export default class App extends Component {
     this.chart.onNewAvailabilityData = this.onNewAvailabilityData;
     // this.chart.onNewLegendColors = this.onNewLegendColors;
     // this.chart.onReserveStopped = this.onReserveStopped;
-    this.chart.onNewConcessionsData = this.onNewConcessionsData;
+    this.chart.onUpdateConcessions = this.onUpdateConcessions;
     this.chart.onNewSendMethodsData = this.onNewSendMethodsData;
+    this.chart.onUpdateBasket = this.onUpdateBasket;
     // this.chart.onEvent = this.onEvent;
     this.chart.init(chartConfig);
   }
 
-  onSeatClick(e) {
-    console.log("onSeatClick()");
-    this.setState({ concessionsIsOpen: true });
+  onSeatClick(e, seatData) {
+    this.setState({ concessionsIsOpen: true, highlightedSeat: seatData });
   }
 
   onAddSeat(event) {
-    console.log("onAddSeat() 2 event = ", event);
     this.setState({ basket: event.basket });
   }
   onRemoveSeat(event) {
@@ -85,18 +87,16 @@ export default class App extends Component {
   }
 
   onNewAvailabilityData(event) {
-    console.log(event);
     this.setState({ availability: event.availability });
   }
 
   onNewSendMethodsData(event) {
-    console.log(event);
     this.setState({ sendMethods: event.sendMethods });
   }
 
-  onNewConcessionsData(event) {
-    console.log("onNewConcessionsData() event = ", event);
-    this.setState({ concessions: event.concessions });
+  onUpdateConcessions(event) {
+    console.warn("onUpdateConcessions() event = ", event);
+    this.setState({ concessions: event.concessions, basket: event.basket });
   }
 
   removeSeat(seatUUID) {
@@ -105,7 +105,6 @@ export default class App extends Component {
 
   selectSendMethod(methodCode) {
     this.chart.selectSendMethod(methodCode);
-    console.log("selectSendMethod() methodCode = ", methodCode);
     this.setState({ selectedMethod: methodCode });
   }
 
@@ -114,14 +113,14 @@ export default class App extends Component {
   }
 
   goToCheckout(event) {
-    console.log("goToCheckout() event = ", event);
+    // console.log("goToCheckout() event = ", event);
   }
 
   onGoToCheckout(event) {
-    console.log("onGoToCheckout() event = ", event);
+    // console.log("onGoToCheckout() event = ", event);
   }
   onSeatsReserved(event) {
-    console.log("onSeatsReserved() event = ", event);
+    // console.log("onSeatsReserved() event = ", event);
   }
 
   displayConcessions() {
@@ -131,15 +130,30 @@ export default class App extends Component {
 
     return (
       <Concessions
-        items={this.state.concessions}
+        items={this.state.highlightedSeat.concessions}
+        selectedItem={this.state.highlightedSeat.selectedConcession}
         currency={this.state.availability.currency}
-        onItemSelected={this.props.selectConcession}
+        onItemSelected={this.selectConcession}
+        onClose={this.hideConcessions}
       />
     );
   }
 
-  selectConcession(item) {
-    console.log("selectConcession() item = ", item);
+  hideConcessions() {
+    this.setState({ concessionsIsOpen: false });
+  }
+
+  selectConcession(concessionCode) {
+    this.chart.selectConcession(
+      this.state.highlightedSeat.uuid,
+      concessionCode
+    );
+    this.setState({ concessionsIsOpen: false });
+    // console.log("selectConcession() item = ", item);
+  }
+
+  onUpdateBasket(eventData) {
+    this.setState({ basket: eventData.basket });
   }
 
   render() {
