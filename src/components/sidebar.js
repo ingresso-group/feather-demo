@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import EventLog from "components/event_log";
 import AddSeat from "components/add_seat";
+import ChoosePerf from "components/choose_perf";
 
 export default class Sidebar extends Component {
   constructor(props) {
@@ -54,7 +55,7 @@ export default class Sidebar extends Component {
   }
 
   displayChoosePerf() {
-    return <p>Choose perf content</p>;
+    return <ChoosePerf choosePerf={this.props.choosePerf} />;
   }
 
   displayChartControls() {
@@ -62,7 +63,6 @@ export default class Sidebar extends Component {
   }
 
   displayEventLog() {
-    console.log("this = ", this);
     return (
       <EventLog
         events={this.props.events}

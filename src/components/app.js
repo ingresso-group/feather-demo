@@ -43,6 +43,7 @@ export default class App extends Component {
     this.reserveSeats = this.reserveSeats.bind(this);
     this.selectConcession = this.selectConcession.bind(this);
     this.addSeat = this.addSeat.bind(this);
+    this.choosePerf = this.choosePerf.bind(this);
 
     // Feather callbacks
     this.onAddSeat = this.onAddSeat.bind(this);
@@ -210,8 +211,11 @@ export default class App extends Component {
   }
 
   addSeat(seatID) {
-    console.log("addSeat() seatID = ", seatID);
     this.chart.selectSeats(seatID);
+  }
+
+  choosePerf(perfID) {
+    this.chart.selectPerformance(perfID);
   }
 
   render() {
@@ -229,6 +233,7 @@ export default class App extends Component {
           }
           availability={this.state.availability}
           addSeat={this.addSeat}
+          choosePerf={this.choosePerf}
         />
         <div className="main-content">
           <div className={`feather-container ${featherClassNames}`} />
