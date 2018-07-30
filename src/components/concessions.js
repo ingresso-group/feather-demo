@@ -14,8 +14,6 @@ export default class Concessions extends Component {
       return null;
     }
 
-    console.log("this.props = ", this.props);
-
     return this.props.items.map(item => {
       let formattedTotalPrice = getFormattedPrice(
         item.seatprice + item.surcharge,

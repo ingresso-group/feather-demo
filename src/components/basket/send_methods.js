@@ -10,18 +10,12 @@ export default class SendMethods extends Component {
   }
 
   displaySendMethods() {
-    console.warn("props:");
-    console.warn(this.props);
-    console.warn("methods:");
-    console.warn(this.props.methods);
-
     if (!this.props.methods) {
       return null;
     }
 
     return this.props.methods.map(method => {
       let formattedCost = getFormattedPrice(method.cost, this.props.currency);
-      console.log("methoooooods method = ", method);
       let classNames = "";
       if (method.code === this.props.selectedMethod) {
         classNames += "selected";

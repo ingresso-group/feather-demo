@@ -2,9 +2,9 @@ import React, { Component } from "react";
 
 import { getFormattedPrice } from "utils/utils";
 
-import Seat from "components/basket/seat";
 import SendMethods from "components/basket/send_methods.js";
 import BasketHeader from "components/basket/basket_header";
+import SeatList from "components/basket/seat_list";
 
 export default class Basket extends Component {
   constructor(props) {
@@ -20,22 +20,7 @@ export default class Basket extends Component {
     if (!this.props.basket || !this.props.basket.seatBundles) {
       return null;
     }
-    this.props.basket.seatBundles.forEach(bundle => {
-      bundle.seats.forEach(seat => {
-        seats.push(
-          <Seat
-            key={seat.uuid}
-            bundle={bundle}
-            seat={seat}
-            legendItem={this.props.availability.legend[seat.legend]}
-            currency={this.props.availability.currency}
-            block={this.props.availability.seat_blocks[seat.seat_block]}
-            onClick={this.props.onSeatClick}
-          />
-        );
-      });
-    });
-    return seats;
+    return <SeatList {...this.props} seatsAreRemovable={true} />;
   }
 
   displayPart2() {
@@ -111,14 +96,12 @@ export default class Basket extends Component {
       );
     }
 
-    console.log("this.props = ", this.props);
-
     let headerMessage = `Your order summary`;
     if (formattedTotal) {
       headerMessage += ` (${formattedTotal})`;
     }
     let headerSubMessage = null;
-    if (this.props.concessions && this.props.concessions.length > 0) {
+    if (this.props.concessions && this.props.concessions.length > 1) {
       headerSubMessage = "(discounts available, click on a seat for more info)";
     }
 

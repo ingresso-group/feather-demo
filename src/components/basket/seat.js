@@ -5,10 +5,24 @@ import { getFormattedPrice } from "utils/utils";
 export default class Seat extends Component {
   constructor(props) {
     super(props);
+
+    this.displayRemoveButton = this.displayRemoveButton.bind(this);
+  }
+
+  displayRemoveButton() {
+    if (!this.props.removable) {
+      return null;
+    }
+
+    return (
+      <i
+        className="fa fa-close remove"
+        onClick={e => this.props.removeSeat(seat.uuid)}
+      />
+    );
   }
 
   render() {
-    console.log(this.props);
     const block = this.props.block;
     const seat = this.props.seat;
     const currency = this.props.currency;
@@ -40,11 +54,7 @@ export default class Seat extends Component {
     return (
       <li onClick={e => this.props.onClick(e, seat)}>
         <span className="description">{label}</span>{" "}
-        {/* <span className="price">{formattedPrice}</span> */}
-        <i
-          className="fa fa-close remove"
-          onClick={e => this.props.removeSeat(seat.uuid)}
-        />
+        {this.displayRemoveButton()}
       </li>
     );
   }

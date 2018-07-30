@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import EventLog from "components/event_log";
+
 export default class Sidebar extends Component {
   constructor(props) {
     super(props);
@@ -14,27 +16,53 @@ export default class Sidebar extends Component {
           id: "add-seat",
           icon: "fa-plus-circle",
           selected: false,
+          showContentMethod: "displayAddSeat",
         },
         {
           label: "Choose a perf",
           id: "choose-perf",
           icon: "fa-trophy",
           selected: false,
+          showContentMethod: "displayChoosePerf",
         },
         {
           label: "Chart controls",
           id: "chart-controls",
           icon: "fa-wrench",
           selected: false,
+          showContentMethod: "displayChartControls",
         },
         {
-          label: "Events fired",
-          id: "events-fired",
+          label: "Event log",
+          id: "event-log",
           icon: "fa-list-alt",
           selected: false,
+          showContentMethod: "displayEventLog",
         },
       ],
     };
+  }
+
+  displayAddSeat() {
+    return <p>Add seat content</p>;
+  }
+
+  displayChoosePerf() {
+    return <p>Choose perf content</p>;
+  }
+
+  displayChartControls() {
+    return <p>Chart controls content</p>;
+  }
+
+  displayEventLog() {
+    console.log("this = ", this);
+    return (
+      <EventLog
+        events={this.props.events}
+        selectEvent={this.props.selectEvent}
+      />
+    );
   }
 
   toggleItem(itemID) {
@@ -51,23 +79,24 @@ export default class Sidebar extends Component {
     return this.state.items.map(item => {
       let className = "";
       let arrowIcon;
+      let content = null;
 
       if (item.selected) {
         className = "selected";
         arrowIcon = "fa-chevron-down";
+        content = this[item.showContentMethod].call(this);
       } else {
         arrowIcon = "fa-chevron-right";
       }
 
       return (
-        <li
-          onClick={e => this.toggleItem(item.id)}
-          className={className}
-          key={item.id}
-        >
-          <i className={"icon fa " + item.icon} />
-          {item.label}
-          <i className={"arrow fa " + arrowIcon} />
+        <li key={item.id}>
+          <label className={className} onClick={e => this.toggleItem(item.id)}>
+            <i className={"icon fa " + item.icon} />
+            {item.label}
+            <i className={"arrow fa " + arrowIcon} />
+          </label>
+          <div className="content">{content}</div>
         </li>
       );
     });
@@ -77,7 +106,6 @@ export default class Sidebar extends Component {
     return (
       <div className="sidebar">
         <p>
-          {/* <i className="fa fa-feather-alt" /> */}
           <img className="logo" src="assets/feather-icon.png" />
         </p>
         <ul className="menu">{this.displayItems()}</ul>

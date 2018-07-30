@@ -45,8 +45,6 @@ function IngressoSeatingPlan() {
         Chart.hasCustomLegend();
       }
     }
-
-    console.log("config: ", config);
   };
 
   Chart.createPreloader = function() {
@@ -129,7 +127,6 @@ function IngressoSeatingPlan() {
   Chart.selectPerformance = function(perfID) {
     Chart.showPreloader();
     Chart.addEventToQueue("SELECT_PERFORMANCE", perfID);
-    console.log("selectPerformance: ", perfID);
   };
 
   Chart.hasCustomLegend = function() {

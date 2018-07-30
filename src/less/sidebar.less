@@ -11,16 +11,19 @@
     color: @color-accent-2-b;
   }
 
+  .menu {
+    max-height: ~"calc(100vh - 130px)";
+    overflow: auto;
+  }
+
   ul {
     li {
       font-size: 0.85em;
       border-top: 2px solid @color-base-b;
       border-bottom: 2px solid @color-base-b;
       color: @color-alternative;
-      opacity: 0.35;
+
       margin-top: -2px;
-      padding-top: 15px;
-      padding-bottom: 15px;
       position: relative;
       cursor: pointer;
       transition: background-color 300ms;
@@ -43,34 +46,73 @@
         vertical-align: middle;
       }
 
-      &:hover {
-        background-color: @color-base-b;
+      label {
+        position: relative;
+        display: block;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        cursor: pointer;
+        opacity: 0.35;
+
+        &:hover {
+          background-color: @color-base-b;
+        }
+
+        &.selected,
+        &:hover {
+          opacity: 1;
+
+          &:after {
+            content: "";
+            width: 4px;
+            position: absolute;
+            height: ~"calc(100% + 0px)";
+            left: 0;
+            top: 0px;
+            background-color: @color-accent-2;
+            border-radius: 5px;
+
+            .gradient-vertical-1;
+          }
+
+          .icon {
+            background: -webkit-linear-gradient(
+              @color-accent-1,
+              @color-accent-1-b
+            );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+          }
+        }
       }
 
-      &.selected {
-        opacity: 1;
+      .event-log {
+        & > li {
+          padding-top: 15px;
+          padding-bottom: 15px;
+          font-size: 0.8em;
+          opacity: 0.6;
+          cursor: pointer;
+          padding-left: 10px;
 
-        .icon {
-          background: -webkit-linear-gradient(
-            @color-accent-1,
-            @color-accent-1-b
-          );
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-        }
-        &:after {
-          content: "";
-          width: 4px;
-          position: absolute;
-          height: ~"calc(100% + 0px)";
-          left: 0;
-          top: 0px;
-          background-color: @color-accent-2;
-          border-radius: 5px;
-
-          .gradient-vertical-1;
+          &:hover,
+          &.selected {
+            opacity: 1;
+            font-weight: 700;
+            background-color: @color-base-b;
+          }
         }
       }
+    }
+  }
+
+  .event-log {
+    padding-left: 48px;
+    margin-top: 10px;
+
+    li {
+      font-weight: 400;
+      color: #000;
     }
   }
 }

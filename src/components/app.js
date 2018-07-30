@@ -3,11 +3,14 @@ import React, { Component } from "react";
 import Basket from "components/basket/basket";
 import Sidebar from "components/sidebar";
 import Concessions from "components/concessions";
+import Checkout from "components/checkout";
+import EventContent from "components/event_content";
 
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      // data
       basket: {},
       availability: {},
       basketExpanded: false,
@@ -15,7 +18,13 @@ export default class App extends Component {
       selectedMethod: null,
       concessions: null,
       highlightedSeat: null,
+      transactionUUID: null,
+      events: [],
+      selectedEventFromLog: null,
+
+      // flags
       concessionsIsOpen: false,
+      checkoutIsOpen: false,
     };
 
     this.chart = null;
@@ -24,7 +33,9 @@ export default class App extends Component {
     this.initFeather = this.initFeather.bind(this);
     this.onSeatClick = this.onSeatClick.bind(this);
     this.displayConcessions = this.displayConcessions.bind(this);
+    this.displayCheckout = this.displayCheckout.bind(this);
     this.hideConcessions = this.hideConcessions.bind(this);
+    this.displayEventContent = this.displayEventContent.bind(this);
 
     // Feather imperative methods
     this.removeSeat = this.removeSeat.bind(this);
@@ -39,6 +50,8 @@ export default class App extends Component {
     this.onNewSendMethodsData = this.onNewSendMethodsData.bind(this);
     this.onUpdateConcessions = this.onUpdateConcessions.bind(this);
     this.onUpdateBasket = this.onUpdateBasket.bind(this);
+    this.onGoToCheckout = this.onGoToCheckout.bind(this);
+    this.onEvent = this.onEvent.bind(this);
   }
 
   componentDidMount() {
@@ -71,8 +84,15 @@ export default class App extends Component {
     this.chart.onUpdateConcessions = this.onUpdateConcessions;
     this.chart.onNewSendMethodsData = this.onNewSendMethodsData;
     this.chart.onUpdateBasket = this.onUpdateBasket;
-    // this.chart.onEvent = this.onEvent;
+    this.chart.onEvent = this.onEvent;
     this.chart.init(chartConfig);
+  }
+
+  onEvent(eventData) {
+    let newEvents = JSON.parse(JSON.stringify(this.state.events));
+    let newEventData = JSON.parse(JSON.stringify(eventData));
+    newEvents.unshift(newEventData);
+    this.setState({ events: newEvents });
   }
 
   onSeatClick(e, seatData) {
@@ -95,7 +115,6 @@ export default class App extends Component {
   }
 
   onUpdateConcessions(event) {
-    console.warn("onUpdateConcessions() event = ", event);
     this.setState({ concessions: event.concessions, basket: event.basket });
   }
 
@@ -112,12 +131,11 @@ export default class App extends Component {
     this.chart.reserve();
   }
 
-  goToCheckout(event) {
-    // console.log("goToCheckout() event = ", event);
-  }
-
   onGoToCheckout(event) {
-    // console.log("onGoToCheckout() event = ", event);
+    this.setState({
+      checkoutIsOpen: true,
+      transactionUUID: event.transaction_uuid,
+    });
   }
   onSeatsReserved(event) {
     // console.log("onSeatsReserved() event = ", event);
@@ -139,6 +157,26 @@ export default class App extends Component {
     );
   }
 
+  displayCheckout() {
+    if (!this.state.checkoutIsOpen) {
+      return null;
+    }
+
+    return (
+      <Checkout
+        basket={this.state.basket}
+        availability={this.state.availability}
+        sendMethods={this.state.sendMethods}
+        expanded={this.state.basketExpanded}
+        concessions={this.state.concessions}
+        selectSendMethod={this.selectSendMethod}
+        selectedMethod={this.state.selectedMethod}
+        onClose={e => this.setState({ checkoutIsOpen: false })}
+        transactionUUID={this.state.transactionUUID}
+      />
+    );
+  }
+
   hideConcessions() {
     this.setState({ concessionsIsOpen: false });
   }
@@ -156,6 +194,19 @@ export default class App extends Component {
     this.setState({ basket: eventData.basket });
   }
 
+  displayEventContent() {
+    if (!this.state.selectedEventFromLog) {
+      return null;
+    }
+
+    return (
+      <EventContent
+        content={this.state.selectedEventFromLog}
+        onClose={e => this.setState({ selectedEventFromLog: null })}
+      />
+    );
+  }
+
   render() {
     let featherClassNames = "";
     if (this.state.basketExpanded) {
@@ -164,7 +215,12 @@ export default class App extends Component {
 
     return (
       <div className="main-container">
-        <Sidebar />
+        <Sidebar
+          events={this.state.events}
+          selectEvent={selectedEvent =>
+            this.setState({ selectedEventFromLog: selectedEvent })
+          }
+        />
         <div className="main-content">
           <div className={`feather-container ${featherClassNames}`} />
           <Basket
@@ -185,6 +241,8 @@ export default class App extends Component {
           />
         </div>
         {this.displayConcessions()}
+        {this.displayCheckout()}
+        {this.displayEventContent()}
       </div>
     );
   }

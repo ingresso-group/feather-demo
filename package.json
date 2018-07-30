@@ -8,7 +8,6 @@
   "author": "Dragos Iordachioaia",
   "license": "ISC",
   "main": "",
-  "dependencies": {},
   "devDependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.0-14",
     "@fortawesome/free-solid-svg-icons": "^5.1.0-11",
@@ -39,6 +38,7 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-fontawesome": "^1.6.1",
+    "react-json-view": "^1.19.1",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "react-string-replace": "^0.4.1",
