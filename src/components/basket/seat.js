@@ -17,7 +17,7 @@ export default class Seat extends Component {
     return (
       <i
         className="fa fa-close remove"
-        onClick={e => this.props.removeSeat(seat.uuid)}
+        onClick={e => this.props.removeSeat(e, this.props.seat.uuid)}
       />
     );
   }

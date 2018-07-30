@@ -30,6 +30,7 @@ export default class SeatList extends Component {
             block={this.props.availability.seat_blocks[seat.seat_block]}
             onClick={this.props.onSeatClick}
             removable={this.props.seatsAreRemovable}
+            removeSeat={this.props.removeSeat}
           />
         );
       });

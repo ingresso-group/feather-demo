@@ -42,6 +42,7 @@ export default class App extends Component {
     this.selectSendMethod = this.selectSendMethod.bind(this);
     this.reserveSeats = this.reserveSeats.bind(this);
     this.selectConcession = this.selectConcession.bind(this);
+    this.addSeat = this.addSeat.bind(this);
 
     // Feather callbacks
     this.onAddSeat = this.onAddSeat.bind(this);
@@ -118,7 +119,8 @@ export default class App extends Component {
     this.setState({ concessions: event.concessions, basket: event.basket });
   }
 
-  removeSeat(seatUUID) {
+  removeSeat(e, seatUUID) {
+    e.stopPropagation();
     this.chart.removeSeat(seatUUID);
   }
 
@@ -207,6 +209,11 @@ export default class App extends Component {
     );
   }
 
+  addSeat(seatID) {
+    console.log("addSeat() seatID = ", seatID);
+    this.chart.selectSeats(seatID);
+  }
+
   render() {
     let featherClassNames = "";
     if (this.state.basketExpanded) {
@@ -220,6 +227,8 @@ export default class App extends Component {
           selectEvent={selectedEvent =>
             this.setState({ selectedEventFromLog: selectedEvent })
           }
+          availability={this.state.availability}
+          addSeat={this.addSeat}
         />
         <div className="main-content">
           <div className={`feather-container ${featherClassNames}`} />

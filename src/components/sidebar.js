@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import EventLog from "components/event_log";
+import AddSeat from "components/add_seat";
 
 export default class Sidebar extends Component {
   constructor(props) {
@@ -44,7 +45,12 @@ export default class Sidebar extends Component {
   }
 
   displayAddSeat() {
-    return <p>Add seat content</p>;
+    return (
+      <AddSeat
+        availability={this.props.availability}
+        addSeat={this.props.addSeat}
+      />
+    );
   }
 
   displayChoosePerf() {
