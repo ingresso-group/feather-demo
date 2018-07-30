@@ -44,6 +44,7 @@ export default class App extends Component {
     this.selectConcession = this.selectConcession.bind(this);
     this.addSeat = this.addSeat.bind(this);
     this.choosePerf = this.choosePerf.bind(this);
+    this.selectColorScheme = this.selectColorScheme.bind(this);
 
     // Feather callbacks
     this.onAddSeat = this.onAddSeat.bind(this);
@@ -218,6 +219,10 @@ export default class App extends Component {
     this.chart.selectPerformance(perfID);
   }
 
+  selectColorScheme(colorScheme) {
+    this.chart.changeColorScheme(colorScheme);
+  }
+
   render() {
     let featherClassNames = "";
     if (this.state.basketExpanded) {
@@ -234,6 +239,7 @@ export default class App extends Component {
           availability={this.state.availability}
           addSeat={this.addSeat}
           choosePerf={this.choosePerf}
+          selectColorScheme={this.selectColorScheme}
         />
         <div className="main-content">
           <div className={`feather-container ${featherClassNames}`} />

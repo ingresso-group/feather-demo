@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import EventLog from "components/event_log";
 import AddSeat from "components/add_seat";
 import ChoosePerf from "components/choose_perf";
+import ChartControls from "components/chart_controls";
 
 export default class Sidebar extends Component {
   constructor(props) {
@@ -59,7 +60,7 @@ export default class Sidebar extends Component {
   }
 
   displayChartControls() {
-    return <p>Chart controls content</p>;
+    return <ChartControls selectColorScheme={this.props.selectColorScheme} />;
   }
 
   displayEventLog() {
