@@ -8,7 +8,24 @@ export default class ChartControls extends Component {
       colorSchemes: [
         {
           label: "Feather",
-          colors: ["#FEB390", "#E56B92", "#3D45C6", "#5FCEB4", "#4090C0"],
+          colors: [
+            "#FEB390",
+            "#E56B92",
+            "#3D45C6",
+            "#5FCEB4",
+            "#4090C0",
+            "#C2C094",
+            "#390040",
+            "#444054",
+            "#BEBBBB",
+            "#7C9885",
+            "#FFE6E8",
+            "#8E3B46",
+            "#A18276",
+            "#FDE74C",
+            "#3891A6",
+            "#4C5B5C",
+          ],
         },
         {
           label: "Sea Shells",
@@ -130,6 +147,16 @@ export default class ChartControls extends Component {
         >
           {this.displayColorSchemes()}
         </select>
+        <label>Change the background color</label>
+        <input
+          value={this.props.chartBackgroundColor}
+          type="text"
+          onChange={e =>
+            this.props.onChangeChartBackgroundColor(e.target.value)
+          }
+        />
+        <button onClick={this.props.changeChartBackgroundColor}>Change</button>
+        <br />
 
         <button onClick={this.props.zoomIn}>Zoom In</button>
         <button onClick={this.props.zoomOut}>Zoom Out</button>

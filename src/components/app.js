@@ -24,7 +24,8 @@ export default class App extends Component {
       // domain: "https://test.ticketswitch.com",
       domain: "https://www.dragos-laptop.ingresso.co.uk",
       eventID: "7AB",
-      perfID: "7AB-4",
+      perfID: "7AB-5",
+      chartBackgroundColor: "#F9F9F9",
 
       // flags
       basketIsExpanded: false,
@@ -57,6 +58,9 @@ export default class App extends Component {
     this.halvePrices = this.halvePrices.bind(this);
     this.chooseEvent = this.chooseEvent.bind(this);
     this.chooseDomain = this.chooseDomain.bind(this);
+    this.changeChartBackgroundColor = this.changeChartBackgroundColor.bind(
+      this
+    );
 
     // Feather callbacks
     this.onAddSeat = this.onAddSeat.bind(this);
@@ -105,6 +109,7 @@ export default class App extends Component {
       selector: ".feather-container",
       silenceWarnings: false,
       preloaderColor: "#EC008C",
+      chartBackgroundColor: this.state.chartBackgroundColor,
       useHTTPS: true,
       hasCustomLegend: true,
     };
@@ -120,16 +125,17 @@ export default class App extends Component {
       "#3D45C6",
       "#5FCEB4",
       "#4090C0",
-      "#FEB390",
-      "#E56B92",
-      "#3D45C6",
-      "#5FCEB4",
-      "#4090C0",
-      "#FEB390",
-      "#E56B92",
-      "#3D45C6",
-      "#5FCEB4",
-      "#4090C0",
+      "#C2C094",
+      "#390040",
+      "#444054",
+      "#BEBBBB",
+      "#7C9885",
+      "#FFE6E8",
+      "#8E3B46",
+      "#A18276",
+      "#FDE74C",
+      "#3891A6",
+      "#4C5B5C",
     ]);
 
     // subscribing to events
@@ -308,7 +314,7 @@ export default class App extends Component {
 
   choosePerf() {
     this.resetState();
-    this.chart.selectPerformance();
+    this.chart.selectPerformance(this.state.perfID);
   }
 
   chooseEvent(eventID) {
@@ -321,6 +327,10 @@ export default class App extends Component {
 
   selectColorScheme(colorScheme) {
     this.chart.changeColorScheme(colorScheme);
+  }
+
+  changeChartBackgroundColor() {
+    this.chart.changeChartBackgroundColor(this.state.chartBackgroundColor);
   }
 
   halvePrices() {
@@ -362,6 +372,11 @@ export default class App extends Component {
           chooseDomain={this.chooseDomain}
           chooseEvent={this.chooseEvent}
           choosePerf={this.choosePerf}
+          chartBackgroundColor={this.state.chartBackgroundColor}
+          onChangeChartBackgroundColor={chartBackgroundColor =>
+            this.setState({ chartBackgroundColor })
+          }
+          changeChartBackgroundColor={this.changeChartBackgroundColor}
           selectColorScheme={this.selectColorScheme}
           zoomIn={this.chart ? this.chart.zoomIn : null}
           zoomOut={this.chart ? this.chart.zoomOut : null}
