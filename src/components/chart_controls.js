@@ -106,10 +106,6 @@ export default class ChartControls extends Component {
     };
   }
 
-  componentDidMount() {
-    this.props.selectColorScheme(this.state.colorSchemes[0].colors);
-  }
-
   displayColorSchemes() {
     return this.state.colorSchemes.map((colorScheme, index) => {
       let props = {
@@ -126,18 +122,6 @@ export default class ChartControls extends Component {
   render() {
     return (
       <div className="chart-controls-container">
-        <div className="input-group">
-          <input type="checkbox" id="show-legend" name="show-legend" />
-          <label htmlFor="show-legend">Show Legend</label>
-        </div>
-        <div className="input-group">
-          <input
-            type="checkbox"
-            id="show-zoom-controls"
-            name="show-zoom-controls"
-          />
-          <label htmlFor="show-zoom-controls">Show Zoom Controls</label>
-        </div>
         <label>Change the color scheme</label>
         <select
           onChange={e =>
@@ -147,12 +131,16 @@ export default class ChartControls extends Component {
           {this.displayColorSchemes()}
         </select>
 
-        <button>Zoom In</button>
-        <button>Zoom Out</button>
-        <button>Reset Chart</button>
-        <button>Show Widget</button>
-        <button>Hide Widget</button>
-        <button>Halve Prices</button>
+        <button onClick={this.props.zoomIn}>Zoom In</button>
+        <button onClick={this.props.zoomOut}>Zoom Out</button>
+        <button onClick={this.props.resetChart}>Reset Chart</button>
+        <button onClick={this.props.showWidget}>Show Widget</button>
+        <button onClick={this.props.hideWidget}>Hide Widget</button>
+        <button onClick={this.props.showLegend}>Show Legend</button>
+        <button onClick={this.props.hideLegend}>Hide Legend</button>
+        <button onClick={this.props.showControls}>Show Zoom Controls</button>
+        <button onClick={this.props.hideControls}>Hide Zoom Controls</button>
+        <button onClick={this.props.halvePrices}>Halve Prices</button>
       </div>
     );
   }

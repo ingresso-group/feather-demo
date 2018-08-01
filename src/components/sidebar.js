@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import EventLog from "components/event_log";
 import AddSeat from "components/add_seat";
 import ChoosePerf from "components/choose_perf";
+import ChooseEvent from "components/choose_event";
+import ChooseDomain from "components/choose_domain";
 import ChartControls from "components/chart_controls";
 
 export default class Sidebar extends Component {
@@ -22,7 +24,21 @@ export default class Sidebar extends Component {
           showContentMethod: "displayAddSeat",
         },
         {
-          label: "Choose a perf",
+          label: "Change domain",
+          id: "choose-domain",
+          icon: "fa-code",
+          selected: false,
+          showContentMethod: "displayChooseDomain",
+        },
+        {
+          label: "Change event",
+          id: "choose-event",
+          icon: "fa-star",
+          selected: false,
+          showContentMethod: "displayChooseEvent",
+        },
+        {
+          label: "Change performance",
           id: "choose-perf",
           icon: "fa-trophy",
           selected: false,
@@ -59,8 +75,16 @@ export default class Sidebar extends Component {
     return <ChoosePerf choosePerf={this.props.choosePerf} />;
   }
 
+  displayChooseEvent() {
+    return <ChooseEvent chooseEvent={this.props.chooseEvent} />;
+  }
+
   displayChartControls() {
-    return <ChartControls selectColorScheme={this.props.selectColorScheme} />;
+    return <ChartControls {...this.props} />;
+  }
+
+  displayChooseDomain() {
+    return <ChooseDomain {...this.props} />;
   }
 
   displayEventLog() {

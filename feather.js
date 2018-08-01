@@ -15,32 +15,33 @@ function IngressoSeatingPlan() {
       "NEW_LEGEND_COLORS",
       "RESERVE_STOPPED",
       "UPDATE_BASKET",
+      "ERROR",
       "404",
     ],
     preloaderContainer: null,
     iframe: null,
     customPreloader: null,
     // domain: "b2b.ingresso.co.uk"
-    domain: "www.dragos-laptop.ingresso.co.uk",
+    // domain: "www.dragos-laptop.ingresso.co.uk",
+    // domain: "ftbo.qa.ingresso.co.uk",
+    defaultDomain: "https://test.ticketswitch.com",
   };
 
   Chart.init = function(config) {
     Chart.config = config;
-    if (!Chart.config.hasOwnProperty("useHTTPS")) {
-      Chart.config.useHTTPS = true;
-    }
 
     var allOK = Chart.healthCheck();
     if (allOK) {
+      document.querySelector(Chart.config.selector).innerHTML = "";
       Chart.addListener();
       Chart.createPreloader();
       Chart.createIFrame();
       if (Chart.config.allowControlsOnSmallScreens) {
         Chart.addEventToQueue("ALLOW_CONTROLS_ON_SMALL_SCREENS");
       }
-      if (Chart.config.perfID) {
-        Chart.selectPerformance(Chart.config.perfID);
-      }
+      // if (Chart.config.perfID) {
+      Chart.selectPerformance(Chart.config.perfID);
+      // }
       if (Chart.config.hasCustomLegend) {
         Chart.hasCustomLegend();
       }
@@ -223,7 +224,9 @@ function IngressoSeatingPlan() {
   };
 
   Chart.sendEvent = function(data) {
-    Chart.iframe.contentWindow.postMessage(JSON.stringify(data), "*");
+    if (Chart.iframe && Chart.iframe.contentWindow) {
+      Chart.iframe.contentWindow.postMessage(JSON.stringify(data), "*");
+    }
   };
 
   Chart.healthCheck = function() {
@@ -345,7 +348,11 @@ function IngressoSeatingPlan() {
         }
 
         var receivedEventName = eventData.event;
+        if (!eventData.data) {
+          eventData.data = {};
+        }
         var eventContent = eventData.data;
+
         eventContent.eventName = receivedEventName;
 
         if (self.events.indexOf(receivedEventName) !== -1) {
@@ -367,6 +374,9 @@ function IngressoSeatingPlan() {
         ) {
           self.hidePreloader();
         }
+        if (receivedEventName === "ERROR") {
+          Chart.hidePreloader();
+        }
       },
       false
     );
@@ -374,8 +384,7 @@ function IngressoSeatingPlan() {
 
   Chart.createIFrame = function(crtTry) {
     if (!crtTry) crtTry = 1;
-    var prefix = Chart.config.useHTTPS ? "https://" : "http://";
-    var page = prefix + Chart.domain + "/book";
+    var page = (Chart.config.domain || Chart.defaultDomain) + "/book";
     var eventName = "/" + Chart.config.eventID + "-event-name";
     var queryString = "/?is_embedded=1";
     if (Chart.config.mode == "eventReviews") {
@@ -391,9 +400,9 @@ function IngressoSeatingPlan() {
     // force AB tests to our desired values
     queryString += "&ab_test__choose-num-tickets=not_shown";
 
-    if (!Chart.config.perfID) {
-      Chart.hide();
-    }
+    // if (!Chart.config.perfID) {
+    //   Chart.hide();
+    // }
 
     Chart.iframeSource = page + eventName + queryString;
 
@@ -426,6 +435,10 @@ function IngressoSeatingPlan() {
 
     Chart.iframe.setAttribute("src", Chart.iframeSource);
     Chart.iframe.setAttribute("class", "seating-plan");
+    var oldIframeElement = chartContainer.querySelector("iframe");
+    if (oldIframeElement) {
+      oldIframeElement.remove();
+    }
     chartContainer.appendChild(Chart.iframe);
 
     setTimeout(function() {
@@ -436,9 +449,9 @@ function IngressoSeatingPlan() {
       }
     }, 5000);
 
-    if (Chart.config.perfID) {
-      Chart.showPreloader();
-    }
+    // if (Chart.config.perfID) {
+    Chart.showPreloader();
+    // }
   };
 
   function eventNameToFunctionName(s) {

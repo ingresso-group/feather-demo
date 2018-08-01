@@ -5,7 +5,7 @@ export default class ChoosePerf extends Component {
     super(props);
 
     this.state = {
-      perfID: "",
+      perfID: "7AB-5",
     };
   }
 

@@ -29,8 +29,13 @@ export default class Basket extends Component {
     }
 
     let reserveClassNames = "reserve";
+    let reserveLabel = "Reserve";
     if (this.props.selectedMethod) {
       reserveClassNames += " enabled";
+    }
+    if (this.props.isWaitingForReserve) {
+      reserveClassNames += " loading";
+      reserveLabel = "Loading...";
     }
 
     return (
@@ -46,7 +51,7 @@ export default class Basket extends Component {
           selectedMethod={this.props.selectedMethod}
         />
         <button className={reserveClassNames} onClick={this.props.reserveSeats}>
-          Reserve
+          {reserveLabel}
         </button>
       </div>
     );

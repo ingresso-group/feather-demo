@@ -5,6 +5,7 @@ import Sidebar from "components/sidebar";
 import Concessions from "components/concessions";
 import Checkout from "components/checkout";
 import EventContent from "components/event_content";
+import ErrorModal from "components/error_modal";
 
 export default class App extends Component {
   constructor(props) {
@@ -13,7 +14,6 @@ export default class App extends Component {
       // data
       basket: {},
       availability: {},
-      basketExpanded: false,
       sendMethods: null,
       selectedMethod: null,
       concessions: null,
@@ -23,19 +23,24 @@ export default class App extends Component {
       selectedEventFromLog: null,
 
       // flags
+      basketIsExpanded: false,
       concessionsIsOpen: false,
       checkoutIsOpen: false,
+      error: null,
+      isWaitingForReserve: false,
     };
 
     this.chart = null;
 
     // Own class methods
+    this.resetState = this.resetState.bind(this);
     this.initFeather = this.initFeather.bind(this);
     this.onSeatClick = this.onSeatClick.bind(this);
     this.displayConcessions = this.displayConcessions.bind(this);
     this.displayCheckout = this.displayCheckout.bind(this);
     this.hideConcessions = this.hideConcessions.bind(this);
     this.displayEventContent = this.displayEventContent.bind(this);
+    this.displayErrorModal = this.displayErrorModal.bind(this);
 
     // Feather imperative methods
     this.removeSeat = this.removeSeat.bind(this);
@@ -45,6 +50,9 @@ export default class App extends Component {
     this.addSeat = this.addSeat.bind(this);
     this.choosePerf = this.choosePerf.bind(this);
     this.selectColorScheme = this.selectColorScheme.bind(this);
+    this.halvePrices = this.halvePrices.bind(this);
+    this.chooseEvent = this.chooseEvent.bind(this);
+    this.chooseDomain = this.chooseDomain.bind(this);
 
     // Feather callbacks
     this.onAddSeat = this.onAddSeat.bind(this);
@@ -55,16 +63,40 @@ export default class App extends Component {
     this.onUpdateBasket = this.onUpdateBasket.bind(this);
     this.onGoToCheckout = this.onGoToCheckout.bind(this);
     this.onEvent = this.onEvent.bind(this);
+    this.onError = this.onError.bind(this);
+    this.onReserveStopped = this.onReserveStopped.bind(this);
   }
 
   componentDidMount() {
-    this.initFeather();
-  }
-
-  initFeather() {
-    let chartConfig = {
+    this.initFeather({
       eventID: "7AB",
       perfID: "7AB-5",
+      domain: "https://www.dragos-laptop.ingresso.co.uk",
+    });
+  }
+
+  resetState() {
+    this.setState({
+      basketIsExpanded: false,
+      basket: {},
+      availability: {},
+      sendMethods: null,
+      selectedMethod: null,
+      concessions: null,
+      highlightedSeat: null,
+      transactionUUID: null,
+    });
+  }
+
+  initFeather({ eventID, perfID, domain }) {
+    this.resetState();
+    console.log("initFeather()");
+    let chartConfig = {
+      eventID: eventID || "7AB",
+      perfID,
+      domain,
+      // eventID: "2GXJ",
+      // perfID: "2GXJ-576",
       selector: ".feather-container",
       silenceWarnings: false,
       preloaderColor: "#EC008C",
@@ -74,21 +106,57 @@ export default class App extends Component {
 
     // initialising the widget
     this.chart = new IngressoSeatingPlan();
+    this.chart.showLegend();
+    this.chart.showControls();
+    this.chart.changeColorScheme([
+      "#FEB390",
+      "#E56B92",
+      "#3D45C6",
+      "#5FCEB4",
+      "#4090C0",
+      "#FEB390",
+      "#E56B92",
+      "#3D45C6",
+      "#5FCEB4",
+      "#4090C0",
+      "#FEB390",
+      "#E56B92",
+      "#3D45C6",
+      "#5FCEB4",
+      "#4090C0",
+    ]);
 
     // subscribing to events
     this.chart.onAddSeat = this.onAddSeat;
     this.chart.onRemoveSeat = this.onRemoveSeat;
-    // this.chart.onEmptyBasket = this.emptyBasket;
     this.chart.onSeatsReserved = this.onSeatsReserved;
     this.chart.onGoToCheckout = this.onGoToCheckout;
     this.chart.onNewAvailabilityData = this.onNewAvailabilityData;
-    // this.chart.onNewLegendColors = this.onNewLegendColors;
-    // this.chart.onReserveStopped = this.onReserveStopped;
     this.chart.onUpdateConcessions = this.onUpdateConcessions;
     this.chart.onNewSendMethodsData = this.onNewSendMethodsData;
     this.chart.onUpdateBasket = this.onUpdateBasket;
     this.chart.onEvent = this.onEvent;
+    this.chart.onError = this.onError;
+    // this.chart.onEmptyBasket = this.emptyBasket;
+    // this.chart.onNewLegendColors = this.onNewLegendColors;
+    this.chart.onReserveStopped = this.onReserveStopped;
     this.chart.init(chartConfig);
+  }
+
+  onReserveStopped() {
+    this.setState({
+      error:
+        "Your selected seats could not be reserved. Please try again later, or select different seats",
+      isWaitingForReserve: false,
+    });
+  }
+
+  onError(eventData) {
+    this.setState({
+      error: eventData.error,
+      isWaitingForReserve: false,
+      basketIsExpanded: false,
+    });
   }
 
   onEvent(eventData) {
@@ -133,15 +201,18 @@ export default class App extends Component {
 
   reserveSeats() {
     this.chart.reserve();
+    this.setState({ isWaitingForReserve: true });
   }
 
   onGoToCheckout(event) {
     this.setState({
       checkoutIsOpen: true,
       transactionUUID: event.transaction_uuid,
+      isWaitingForReserve: false,
     });
   }
   onSeatsReserved(event) {
+    this.setState({ isWaitingForReserve: false });
     // console.log("onSeatsReserved() event = ", event);
   }
 
@@ -161,6 +232,20 @@ export default class App extends Component {
     );
   }
 
+  displayErrorModal() {
+    if (!this.state.error) {
+      return null;
+    }
+
+    return (
+      <ErrorModal
+        title="There was an error"
+        message={this.state.error}
+        onClose={e => this.setState({ error: null })}
+      />
+    );
+  }
+
   displayCheckout() {
     if (!this.state.checkoutIsOpen) {
       return null;
@@ -171,7 +256,7 @@ export default class App extends Component {
         basket={this.state.basket}
         availability={this.state.availability}
         sendMethods={this.state.sendMethods}
-        expanded={this.state.basketExpanded}
+        expanded={this.state.basketIsExpanded}
         concessions={this.state.concessions}
         selectSendMethod={this.selectSendMethod}
         selectedMethod={this.state.selectedMethod}
@@ -216,16 +301,40 @@ export default class App extends Component {
   }
 
   choosePerf(perfID) {
+    this.resetState();
     this.chart.selectPerformance(perfID);
+  }
+
+  chooseEvent(eventID) {
+    this.initFeather({ eventID });
+  }
+
+  chooseDomain(domain) {
+    this.initFeather({ domain });
   }
 
   selectColorScheme(colorScheme) {
     this.chart.changeColorScheme(colorScheme);
   }
 
+  halvePrices() {
+    var newLegend = JSON.parse(JSON.stringify(this.state.availability.legend));
+    newLegend = newLegend.map((legendItem, index) => {
+      legendItem.original_seatprice /= 2;
+      legendItem.original_surcharge /= 2;
+      legendItem.seatprice /= 2;
+      legendItem.surcharge /= 2;
+      legendItem.price /= 2;
+      legendItem.savingsMessage = "legend " + index;
+      return legendItem;
+    });
+
+    this.chart.setLegend(newLegend);
+  }
+
   render() {
     let featherClassNames = "";
-    if (this.state.basketExpanded) {
+    if (this.state.basketIsExpanded) {
       featherClassNames = "minimised";
     }
 
@@ -239,7 +348,19 @@ export default class App extends Component {
           availability={this.state.availability}
           addSeat={this.addSeat}
           choosePerf={this.choosePerf}
+          chooseEvent={this.chooseEvent}
+          chooseDomain={this.chooseDomain}
           selectColorScheme={this.selectColorScheme}
+          zoomIn={this.chart ? this.chart.zoomIn : null}
+          zoomOut={this.chart ? this.chart.zoomOut : null}
+          resetChart={this.chart ? this.chart.resetChart : null}
+          showWidget={this.chart ? this.chart.show : null}
+          hideWidget={this.chart ? this.chart.hide : null}
+          showLegend={this.chart ? this.chart.showLegend : null}
+          hideLegend={this.chart ? this.chart.hideLegend : null}
+          showControls={this.chart ? this.chart.showControls : null}
+          hideControls={this.chart ? this.chart.hideControls : null}
+          halvePrices={this.halvePrices}
         />
         <div className="main-content">
           <div className={`feather-container ${featherClassNames}`} />
@@ -248,21 +369,23 @@ export default class App extends Component {
             basket={this.state.basket}
             availability={this.state.availability}
             sendMethods={this.state.sendMethods}
-            expanded={this.state.basketExpanded}
+            expanded={this.state.basketIsExpanded}
             concessions={this.state.concessions}
             selectSendMethod={this.selectSendMethod}
             selectedMethod={this.state.selectedMethod}
             // callbacks
-            openBasket={() => this.setState({ basketExpanded: true })}
-            closeBasket={() => this.setState({ basketExpanded: false })}
+            openBasket={() => this.setState({ basketIsExpanded: true })}
+            closeBasket={() => this.setState({ basketIsExpanded: false })}
             reserveSeats={this.reserveSeats}
             removeSeat={this.removeSeat}
             onSeatClick={this.onSeatClick}
+            isWaitingForReserve={this.state.isWaitingForReserve}
           />
         </div>
         {this.displayConcessions()}
         {this.displayCheckout()}
         {this.displayEventContent()}
+        {this.displayErrorModal()}
       </div>
     );
   }
