@@ -1,15 +1,6 @@
 import React, { Component } from "react";
 
 export default class ChooseDomain extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      // domain: "https://test.ticketswitch.com",
-      domain: "https://www.dragos-laptop.ingresso.co.uk",
-    };
-  }
-
   render() {
     return (
       <div className="choose-domain-container">
@@ -18,14 +9,12 @@ export default class ChooseDomain extends Component {
           requests to
         </small>
         <input
-          value={this.state.domain}
+          value={this.props.value}
           placeholder="Domain"
-          onChange={e => this.setState({ domain: e.target.value })}
+          onChange={e => this.props.onChange(e.target.value)}
         />
         <br />
-        <button onClick={e => this.props.chooseDomain(this.state.domain)}>
-          Select
-        </button>
+        <button onClick={e => this.props.chooseDomain()}>Select</button>
       </div>
     );
   }

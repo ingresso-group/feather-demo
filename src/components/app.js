@@ -21,6 +21,10 @@ export default class App extends Component {
       transactionUUID: null,
       events: [],
       selectedEventFromLog: null,
+      // domain: "https://test.ticketswitch.com",
+      domain: "https://www.dragos-laptop.ingresso.co.uk",
+      eventID: "7AB",
+      perfID: "7AB-4",
 
       // flags
       basketIsExpanded: false,
@@ -68,11 +72,7 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    this.initFeather({
-      eventID: "7AB",
-      perfID: "7AB-5",
-      domain: "https://www.dragos-laptop.ingresso.co.uk",
-    });
+    this.initFeather();
   }
 
   resetState() {
@@ -88,13 +88,18 @@ export default class App extends Component {
     });
   }
 
-  initFeather({ eventID, perfID, domain }) {
-    this.resetState();
+  initFeather() {
     console.log("initFeather()");
+
+    let perfID = this.state.perfID;
+    if (this.state.perfID === "") {
+      perfID = null;
+    }
+
     let chartConfig = {
-      eventID: eventID || "7AB",
+      eventID: this.state.eventID,
       perfID,
-      domain,
+      domain: this.state.domain,
       // eventID: "2GXJ",
       // perfID: "2GXJ-576",
       selector: ".feather-container",
@@ -103,6 +108,7 @@ export default class App extends Component {
       useHTTPS: true,
       hasCustomLegend: true,
     };
+    console.log("chartConfig: ", chartConfig);
 
     // initialising the widget
     this.chart = new IngressoSeatingPlan();
@@ -300,17 +306,17 @@ export default class App extends Component {
     this.chart.selectSeats(seatID);
   }
 
-  choosePerf(perfID) {
+  choosePerf() {
     this.resetState();
-    this.chart.selectPerformance(perfID);
+    this.chart.selectPerformance();
   }
 
   chooseEvent(eventID) {
-    this.initFeather({ eventID });
+    this.initFeather();
   }
 
-  chooseDomain(domain) {
-    this.initFeather({ domain });
+  chooseDomain() {
+    this.initFeather();
   }
 
   selectColorScheme(colorScheme) {
@@ -347,9 +353,15 @@ export default class App extends Component {
           }
           availability={this.state.availability}
           addSeat={this.addSeat}
-          choosePerf={this.choosePerf}
-          chooseEvent={this.chooseEvent}
+          domain={this.state.domain}
+          eventID={this.state.eventID}
+          perfID={this.state.perfID}
+          onChangeDomain={domain => this.setState({ domain })}
+          onChangeEvent={eventID => this.setState({ eventID })}
+          onChangePerf={perfID => this.setState({ perfID })}
           chooseDomain={this.chooseDomain}
+          chooseEvent={this.chooseEvent}
+          choosePerf={this.choosePerf}
           selectColorScheme={this.selectColorScheme}
           zoomIn={this.chart ? this.chart.zoomIn : null}
           zoomOut={this.chart ? this.chart.zoomOut : null}

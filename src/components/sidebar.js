@@ -71,20 +71,38 @@ export default class Sidebar extends Component {
     );
   }
 
-  displayChoosePerf() {
-    return <ChoosePerf choosePerf={this.props.choosePerf} />;
+  displayChooseDomain() {
+    return (
+      <ChooseDomain
+        value={this.props.domain}
+        onChange={this.props.onChangeDomain}
+        chooseDomain={this.props.chooseDomain}
+      />
+    );
   }
 
   displayChooseEvent() {
-    return <ChooseEvent chooseEvent={this.props.chooseEvent} />;
+    return (
+      <ChooseEvent
+        value={this.props.eventID}
+        onChange={this.props.onChangeEvent}
+        chooseEvent={this.props.chooseEvent}
+      />
+    );
+  }
+
+  displayChoosePerf() {
+    return (
+      <ChoosePerf
+        value={this.props.perfID}
+        onChange={this.props.onChangePerf}
+        choosePerf={this.props.choosePerf}
+      />
+    );
   }
 
   displayChartControls() {
     return <ChartControls {...this.props} />;
-  }
-
-  displayChooseDomain() {
-    return <ChooseDomain {...this.props} />;
   }
 
   displayEventLog() {
