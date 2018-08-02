@@ -16,7 +16,6 @@ export default class App extends Component {
       availability: {},
       sendMethods: null,
       selectedMethod: null,
-      concessions: null,
       highlightedSeat: null,
       transactionUUID: null,
       events: [],
@@ -86,15 +85,12 @@ export default class App extends Component {
       availability: {},
       sendMethods: null,
       selectedMethod: null,
-      concessions: null,
       highlightedSeat: null,
       transactionUUID: null,
     });
   }
 
   initFeather() {
-    console.log("initFeather()");
-
     let perfID = this.state.perfID;
     if (this.state.perfID === "") {
       perfID = null;
@@ -113,7 +109,6 @@ export default class App extends Component {
       useHTTPS: true,
       hasCustomLegend: true,
     };
-    console.log("chartConfig: ", chartConfig);
 
     // initialising the widget
     this.chart = new IngressoSeatingPlan();
@@ -198,7 +193,7 @@ export default class App extends Component {
   }
 
   onUpdateConcessions(event) {
-    this.setState({ concessions: event.concessions, basket: event.basket });
+    this.setState({ basket: event.basket });
   }
 
   removeSeat(e, seatUUID) {
@@ -225,7 +220,6 @@ export default class App extends Component {
   }
   onSeatsReserved(event) {
     this.setState({ isWaitingForReserve: false });
-    // console.log("onSeatsReserved() event = ", event);
   }
 
   displayConcessions() {
@@ -288,7 +282,6 @@ export default class App extends Component {
       concessionCode
     );
     this.setState({ concessionsIsOpen: false });
-    // console.log("selectConcession() item = ", item);
   }
 
   onUpdateBasket(eventData) {

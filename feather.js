@@ -21,9 +21,6 @@ function IngressoSeatingPlan() {
     preloaderContainer: null,
     iframe: null,
     customPreloader: null,
-    // domain: "b2b.ingresso.co.uk"
-    // domain: "www.dragos-laptop.ingresso.co.uk",
-    // domain: "ftbo.qa.ingresso.co.uk",
     defaultDomain: "https://test.ticketswitch.com",
   };
 
@@ -40,6 +37,10 @@ function IngressoSeatingPlan() {
         Chart.addEventToQueue("ALLOW_CONTROLS_ON_SMALL_SCREENS");
       }
       // if (Chart.config.perfID) {
+      if (Chart.config.chartBackgroundColor) {
+        Chart.changeChartBackgroundColor(Chart.config.chartBackgroundColor);
+      }
+
       Chart.selectPerformance(Chart.config.perfID);
       // }
       if (Chart.config.hasCustomLegend) {
@@ -128,6 +129,10 @@ function IngressoSeatingPlan() {
   Chart.selectPerformance = function(perfID) {
     Chart.showPreloader();
     Chart.addEventToQueue("SELECT_PERFORMANCE", perfID);
+  };
+
+  Chart.changeChartBackgroundColor = function(color) {
+    Chart.addEventToQueue("CHANGE_CHART_BACKGROUND_COLOR", color);
   };
 
   Chart.hasCustomLegend = function() {
@@ -374,7 +379,10 @@ function IngressoSeatingPlan() {
         ) {
           self.hidePreloader();
         }
-        if (receivedEventName === "ERROR") {
+        if (
+          receivedEventName === "ERROR" ||
+          receivedEventName === "HIDE_PRELOADER"
+        ) {
           Chart.hidePreloader();
         }
       },
