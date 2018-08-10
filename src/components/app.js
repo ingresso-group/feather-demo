@@ -23,10 +23,10 @@ export default class App extends Component {
       concessions: [],
       // domain: "https://test.qa.ingresso.co.uk",
       domain: "https://www.dragos-laptop.ingresso.co.uk",
-      // eventID: "7AB",
-      // perfID: "7AB-5",
-      eventID: "2GXJ",
-      perfID: "2GXJ-56J",
+      eventID: "7AB",
+      perfID: "7AB-5",
+      // eventID: "2GXJ",
+      // perfID: "2GXJ-56J",
       chartBackgroundColor: "#F9F9F9",
 
       // flags
@@ -159,11 +159,11 @@ export default class App extends Component {
   }
 
   onEmptyBasket() {
-    this.setState({basket: {}, canProceed: true});
+    this.setState({ basket: {}, canProceed: true });
   }
 
   onReserveStopped() {
-    this.setState({basketIsExpanded: false});
+    this.setState({ basketIsExpanded: false });
   }
 
   onError(eventData) {
@@ -194,7 +194,11 @@ export default class App extends Component {
       basketIsExpanded = false;
     }
 
-    this.setState({ basket: event.basket, basketIsExpanded, canProceed: event.canProceed  });
+    this.setState({
+      basket: event.basket,
+      basketIsExpanded,
+      canProceed: event.canProceed,
+    });
   }
 
   onNewAvailabilityData(event) {
@@ -202,7 +206,6 @@ export default class App extends Component {
   }
 
   onNewSendMethodsData(event) {
-    console.warn('NEW SEND METHODS');
     this.setState({ sendMethods: event.sendMethods });
   }
 
@@ -226,13 +229,12 @@ export default class App extends Component {
   }
 
   onGoToCheckout(event) {
-    console.log('onGoToCheckout() event = ', event);
     this.setState({
       basket: event.basket,
       checkoutIsOpen: true,
       transactionUUID: event.transaction_uuid,
       isWaitingForReserve: false,
-      basketIsExpanded: true
+      basketIsExpanded: true,
     });
   }
   onSeatsReserved(event) {
