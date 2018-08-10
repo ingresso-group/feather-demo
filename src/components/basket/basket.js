@@ -57,18 +57,27 @@ export default class Basket extends Component {
     );
   }
 
-  displayProceedButton() {
+  displayProceedButton(basketIsActive) {
+    let onClick;
+    const proceedClassNames = ["proceed"];
+    if ((this.props.canProceed && basketIsActive) || this.props.expanded) {
+      proceedClassNames.push("enabled");
+    }
+
+    let proceedLabel;
     if (this.props.expanded) {
-      return (
-        <button className="proceed" onClick={this.props.closeBasket}>
-          Close basket
-        </button>
-      );
+      proceedLabel = "Close basket";
+      onClick = this.props.closeBasket;
+    } else if (this.props.canProceed) {
+      proceedLabel = "Proceed";
+      onClick = this.props.openBasket;
+    } else {
+      proceedLabel = "Your selection cannot leave single seats";
     }
 
     return (
-      <button className="proceed" onClick={this.props.openBasket}>
-        Proceed
+      <button className={proceedClassNames.join(" ")} onClick={onClick}>
+        {proceedLabel}
       </button>
     );
   }
@@ -106,7 +115,12 @@ export default class Basket extends Component {
       headerMessage += ` (${formattedTotal})`;
     }
     let headerSubMessage = null;
-    if (this.props.concessions && this.props.concessions.length > 1) {
+    if (
+      this.props.concessions &&
+      this.props.concessions.length > 1 &&
+      this.props.basket.seats &&
+      this.props.basket.seats.length > 0
+    ) {
       headerSubMessage = "(discounts available, click on a seat for more info)";
     }
 
@@ -117,7 +131,7 @@ export default class Basket extends Component {
             message={headerMessage}
             subMessage={headerSubMessage}
             icon="shopping-basket"
-            button={this.displayProceedButton()}
+            button={this.displayProceedButton(basketIsActive)}
           />
         </div>
         <ul className="seats">{this.displaySeats()}</ul>

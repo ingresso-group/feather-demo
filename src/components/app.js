@@ -20,10 +20,13 @@ export default class App extends Component {
       transactionUUID: null,
       events: [],
       selectedEventFromLog: null,
-      // domain: "https://test.ticketswitch.com",
+      concessions: [],
+      // domain: "https://test.qa.ingresso.co.uk",
       domain: "https://www.dragos-laptop.ingresso.co.uk",
-      eventID: "7AB",
-      perfID: "7AB-5",
+      // eventID: "7AB",
+      // perfID: "7AB-5",
+      eventID: "2GXJ",
+      perfID: "2GXJ-56J",
       chartBackgroundColor: "#F9F9F9",
 
       // flags
@@ -32,6 +35,7 @@ export default class App extends Component {
       checkoutIsOpen: false,
       error: null,
       isWaitingForReserve: false,
+      canProceed: true,
     };
 
     this.chart = null;
@@ -52,11 +56,11 @@ export default class App extends Component {
     this.reserveSeats = this.reserveSeats.bind(this);
     this.selectConcession = this.selectConcession.bind(this);
     this.addSeat = this.addSeat.bind(this);
-    this.choosePerf = this.choosePerf.bind(this);
     this.selectColorScheme = this.selectColorScheme.bind(this);
     this.halvePrices = this.halvePrices.bind(this);
-    this.chooseEvent = this.chooseEvent.bind(this);
     this.chooseDomain = this.chooseDomain.bind(this);
+    this.chooseEvent = this.chooseEvent.bind(this);
+    this.choosePerf = this.choosePerf.bind(this);
     this.changeChartBackgroundColor = this.changeChartBackgroundColor.bind(
       this
     );
@@ -72,6 +76,7 @@ export default class App extends Component {
     this.onEvent = this.onEvent.bind(this);
     this.onError = this.onError.bind(this);
     this.onReserveStopped = this.onReserveStopped.bind(this);
+    this.onEmptyBasket = this.onEmptyBasket.bind(this);
   }
 
   componentDidMount() {
@@ -87,10 +92,13 @@ export default class App extends Component {
       selectedMethod: null,
       highlightedSeat: null,
       transactionUUID: null,
+      canProceed: true,
     });
   }
 
   initFeather() {
+    this.setState({ basketIsExpanded: false });
+
     let perfID = this.state.perfID;
     if (this.state.perfID === "") {
       perfID = null;
@@ -144,18 +152,18 @@ export default class App extends Component {
     this.chart.onUpdateBasket = this.onUpdateBasket;
     this.chart.onEvent = this.onEvent;
     this.chart.onError = this.onError;
-    // this.chart.onEmptyBasket = this.emptyBasket;
+    this.chart.onEmptyBasket = this.onEmptyBasket;
     // this.chart.onNewLegendColors = this.onNewLegendColors;
     this.chart.onReserveStopped = this.onReserveStopped;
     this.chart.init(chartConfig);
   }
 
+  onEmptyBasket() {
+    this.setState({basket: {}, canProceed: true});
+  }
+
   onReserveStopped() {
-    this.setState({
-      error:
-        "Your selected seats could not be reserved. Please try again later, or select different seats",
-      isWaitingForReserve: false,
-    });
+    this.setState({basketIsExpanded: false});
   }
 
   onError(eventData) {
@@ -178,10 +186,15 @@ export default class App extends Component {
   }
 
   onAddSeat(event) {
-    this.setState({ basket: event.basket });
+    this.setState({ basket: event.basket, canProceed: event.canProceed });
   }
   onRemoveSeat(event) {
-    this.setState({ basket: event.basket });
+    let basketIsExpanded = this.state.basketIsExpanded;
+    if (!event.basket.seats || event.basket.seats.length === 0) {
+      basketIsExpanded = false;
+    }
+
+    this.setState({ basket: event.basket, basketIsExpanded, canProceed: event.canProceed  });
   }
 
   onNewAvailabilityData(event) {
@@ -189,11 +202,12 @@ export default class App extends Component {
   }
 
   onNewSendMethodsData(event) {
+    console.warn('NEW SEND METHODS');
     this.setState({ sendMethods: event.sendMethods });
   }
 
   onUpdateConcessions(event) {
-    this.setState({ basket: event.basket });
+    this.setState({ basket: event.basket, concessions: event.concessions });
   }
 
   removeSeat(e, seatUUID) {
@@ -212,10 +226,13 @@ export default class App extends Component {
   }
 
   onGoToCheckout(event) {
+    console.log('onGoToCheckout() event = ', event);
     this.setState({
+      basket: event.basket,
       checkoutIsOpen: true,
       transactionUUID: event.transaction_uuid,
       isWaitingForReserve: false,
+      basketIsExpanded: true
     });
   }
   onSeatsReserved(event) {
@@ -400,6 +417,7 @@ export default class App extends Component {
             removeSeat={this.removeSeat}
             onSeatClick={this.onSeatClick}
             isWaitingForReserve={this.state.isWaitingForReserve}
+            canProceed={this.state.canProceed}
           />
         </div>
         {this.displayConcessions()}

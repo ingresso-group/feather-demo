@@ -7,6 +7,13 @@ export default class Seat extends Component {
     super(props);
 
     this.displayRemoveButton = this.displayRemoveButton.bind(this);
+    this.onClick = this.onClick.bind(this);
+  }
+
+  onClick(e) {
+    if (this.props.seat.concessions && this.props.seat.concessions.length > 1) {
+      this.props.onClick(e, this.props.seat);
+    }
   }
 
   displayRemoveButton() {
@@ -47,12 +54,17 @@ export default class Seat extends Component {
       );
       label += `${formattedPrice} (${seat.selectedConcession.description})`;
     } else {
-      formattedPrice = getFormattedPrice(legendItem.price, currency);
+      if (legendItem) {
+        formattedPrice = getFormattedPrice(legendItem.price, currency);
+      } else {
+        formattedPrice = "Not available";
+      }
+
       label += formattedPrice;
     }
 
     return (
-      <li onClick={e => this.props.onClick(e, seat)}>
+      <li onClick={this.onClick}>
         <span className="description">{label}</span>{" "}
         {this.displayRemoveButton()}
       </li>
