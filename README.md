@@ -4,18 +4,18 @@ This tool allows you to easily build **interactive seat selection** into your we
 
 ## Demo:
 
-[Click to view the demo](https://ingresso-group.github.io/feather-demo/?event=7AB&perf=7AB-5&domain=test.ticketswitch.com)
+[Click to view the demo](https://ingresso-group.github.io/feather-demo/)
 
 ## Getting Started:
 
-1) Create an empty page
+1. Create an empty page
 
-2) Add a container element, where the widget will appear
+2. Add a container element, where the widget will appear
 
-3) Import our library at the bottom of your page:
-[Get it here](https://storage.googleapis.com/ticketswitch/feather/0.3.0/feather.min.js)
+3. Import our library at the bottom of your page:
+   [Get it here](https://storage.googleapis.com/ticketswitch/feather/0.3.0/feather.min.js)
 
-4) Configure the widget
+4. Configure the widget
 
 ### The least amount of code required to get started:
 
@@ -55,30 +55,30 @@ In order to specify the event/performance to load availability for, as well as t
 
 #### Required configuration parameters:
 
-* eventID (String)
-* perfID (String)
-* selector (String) (the identifier of the container that will hold the widget)
-* domain (String) (domain that Ingresso will provide you with, for your specific integration)
+- eventID (String)
+- perfID (String)
+- selector (String) (the identifier of the container that will hold the widget)
 
-#### Optional configuration parameters:  
-* token (String) (Authentication token, not required to view the demo, but required to purchase; read more about how to obtain this in [Authentication](#authentication)
-* silenceWarnings (Boolean, default is **false**) (If set to **false**, the widget will provide warnings regarding missing configuration and suggestions on fixing issues)
-* preloaderColor (String) (Hex color e.g **#EC008C**)
-* hasCustomLegend (Boolean, default is **false**) (If you plan on changing the prices/messages displayed, you have to set this to **true** - see the **setLegend** function below)
-* allowControlsOnSmallScreens (Boolean, default is **false**) (Normally, **plus/minus/reset** controls get hidden on small/mobile devices, because in most cases, there isn't enough room or they simply aren't needed. This allows you to override that behaviour)
+#### Optional configuration parameters:
+
+- token (String) (Authentication token, not required to view the demo, but required to purchase; read more about how to obtain this in [Authentication](#authentication)
+- silenceWarnings (Boolean, default is **false**) (If set to **false**, the widget will provide warnings regarding missing configuration and suggestions on fixing issues)
+- preloaderColor (String) (Hex color e.g **#EC008C**)
+- hasCustomLegend (Boolean, default is **false**) (If you plan on changing the prices/messages displayed, you have to set this to **true** - see the **setLegend** function below)
+- allowControlsOnSmallScreens (Boolean, default is **false**) (Normally, **plus/minus/reset** controls get hidden on small/mobile devices, because in most cases, there isn't enough room or they simply aren't needed. This allows you to override that behaviour)
 
 ## Getting information out of the widget
 
 In order to allow the host page to respond to user actions on the seating plan, there are a suite of callbacks available:
 
-* onChartInitialised
-* onAddSeat
-* onRemoveSeat
-* onEmptyBasket
-* onGoToCheckout
-* onNewAvailabilityData
-* onNewLegendColors
-* onReserveStopped
+- onChartInitialised
+- onAddSeat
+- onRemoveSeat
+- onEmptyBasket
+- onGoToCheckout
+- onNewAvailabilityData
+- onNewLegendColors
+- onReserveStopped
 
 All of the callbacks will also receive an object containing all the data required to display the right information to the user.
 
@@ -88,24 +88,23 @@ All of the callbacks will also receive an object containing all the data require
 
 There are also some imperative methods used to control the widget, that we can call either before or after initialising it:
 
-* zoomIn
-* zoomOut
-* resetChart
-* hideControls
-* showControls
-* hideLegend
-* showLegend
-* reserve
-* release
-* disableScrollToZoom
-* disableInitialToZoom
-* changeColorScheme (Array of strings) (Hex colors, e.g ['#462446', '#B05F6D', '#EB6B56', '#FFC153', '#47B39D', '#CDCBA6', '#008891', '#00587A', '#ff0000', '#0F3057'])
-* selectPerformance (String) (ID of desired performance, you get this from the Ingresso API; when this function is called, the widget will automatically make itself visible)
-* setPreloader ({css, html}) - if you set this, it will override the default preloader
-* setLegend (Object) - when new availability data is received, you can take the legend object, change any values within it (prices, messages) and then use this function to send it back to the app. It will immediately update the displayed prices.
+- zoomIn
+- zoomOut
+- resetChart
+- hideControls
+- showControls
+- hideLegend
+- showLegend
+- reserve
+- release
+- disableScrollToZoom
+- disableInitialToZoom
+- changeColorScheme (Array of strings) (Hex colors, e.g ['#462446', '#B05F6D', '#EB6B56', '#FFC153', '#47B39D', '#CDCBA6', '#008891', '#00587A', '#ff0000', '#0F3057'])
+- selectPerformance (String) (ID of desired performance, you get this from the Ingresso API; when this function is called, the widget will automatically make itself visible)
+- setPreloader ({css, html}) - if you set this, it will override the default preloader
+- setLegend (Object) - when new availability data is received, you can take the legend object, change any values within it (prices, messages) and then use this function to send it back to the app. It will immediately update the displayed prices.
 
 Availability data and colours are received via their own callbacks (**onNewAvailabilityData** and **onNewLegendColors**) and are needed in order to display pricing information and colors for the selected seats. (Each seat's data contains a reference to a specific legend item, for price/colour)
-
 
 ## Reserving Seats
 
@@ -113,16 +112,16 @@ It's enough to call the **reserve** method on the library, which will start the 
 
 When called, **goToCheckout** will contain a **transaction_uuid** property, that represents a unique identifier assigned to that specific order. You can then go on to reserve that order, based on the token, via the Ingresso API.
 
-	Note: the seats requested by the user might become unavailable in the meantime
+    Note: the seats requested by the user might become unavailable in the meantime
 
 If the requested seats happen to have become unavailable before the user can reserve them, the widget will display a modal window giving the user a choice between going back and selecting other seats manually or going through with a pre-selected set of seats recommended by our system.
 
-* If they choose to select different seats manually, the modal closes and the initially-selected seats drop off the seating map.
-* If they choose to proceed with the recommended seats, the modal will also close and the app will make a reservation call for the new seats. When this process finishes, the newly-created reservation will be for the recommended seats, which you can then display on your checkout page (or anywhere you choose).
+- If they choose to select different seats manually, the modal closes and the initially-selected seats drop off the seating map.
+- If they choose to proceed with the recommended seats, the modal will also close and the app will make a reservation call for the new seats. When this process finishes, the newly-created reservation will be for the recommended seats, which you can then display on your checkout page (or anywhere you choose).
 
 ## Authentication
 
-In order to reserve tickets, you need to obtain a username and password. After receiving those, you should make a request to <https://b2b.ingresso.co.uk/api/b2b> with your `username` and `password` in the `Authorization` header, as basic auth. The response will have a custom HTTP Header, **x-b2b-token**. You can then pass this token in the configuration object of the widget, which will allow it to load the domain we have created for you, and will also allow you to purchase orders based on the **transaction_uuid** value.
+In order to reserve tickets, you need to obtain a username and password. After receiving those, you should make a request to <https://b2b.ingresso.co.uk/api/b2b> with your `username` and `password` in the `Authorization` header, as basic auth. The response will have a custom HTTP Header, **x-b2b-token**. You can then pass this token in the configuration object of the widget, and will allow you to purchase orders based on the **transaction_uuid** value.
 
 Each authentication token has a **maximum** lifetime of 4 hours and is valid for all your customers, so it is advisable that you make this call ahead of time and cache the result, in order to improve the UX of your page (as opposed to making it on each page load). However, this token can get invalidated at any time, which means that you should generate a new one very often (once every few seconds is fine).
 
@@ -132,8 +131,8 @@ Each authentication token has a **maximum** lifetime of 4 hours and is valid for
 
 We have a demo user set up, that allows you to create an auth token for our demo so that you can experiment with the seat chart.
 
-1) Get an Auth Token. `curl https://b2b.ingresso.co.uk/api/b2b/ -u "demo:demopass" -ik`. This will have an `X-B2B-Token` in the response header
-2) Copy paste the code below, inserting your `X-B2B-Token` into the `token` field for the `chartConfig` into a HTML file.
+1. Get an Auth Token. `curl https://b2b.ingresso.co.uk/api/b2b/ -u "demo:demopass" -ik`. This will have an `X-B2B-Token` in the response header
+2. Copy paste the code below, inserting your `X-B2B-Token` into the `token` field for the `chartConfig` into a HTML file.
 
 ```html
 <!doctype html>
@@ -157,7 +156,6 @@ We have a demo user set up, that allows you to create an auth token for our demo
         eventID: '7AB', // demo event
         perfID: '7AB-5',
         selector: '#ingresso-widget',
-        domain: 'b2b.ingresso.co.uk',
         token: '<The-X-B2B-Token-From-Before>',
       }
       var chart = new IngressoSeatingPlan();
@@ -166,20 +164,20 @@ We have a demo user set up, that allows you to create an auth token for our demo
   </body>
 </html>
 ```
-3) Open the HTML file in a web browser.
+
+3. Open the HTML file in a web browser.
 
 ![Alt text](example.png?raw=true)
-
 
 ## Customisation
 
 The widget supports easy customisation of the following attributes:
 
-* seating plan colors
-* fonts
-* texts
-* look & feel (as long as you provide us with the required CSS, we'll apply it for your integration only)
-* prices (legend and hover tooltip)
+- seating plan colors
+- fonts
+- texts
+- look & feel (as long as you provide us with the required CSS, we'll apply it for your integration only)
+- prices (legend and hover tooltip)
 
 However, all of these are changed via our internal control panel, so you have to ask us to do them for you.
 
