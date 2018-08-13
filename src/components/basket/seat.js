@@ -12,7 +12,9 @@ export default class Seat extends Component {
 
   onClick(e) {
     if (this.props.seat.concessions && this.props.seat.concessions.length > 1) {
-      this.props.onClick(e, this.props.seat);
+      if (this.props.onClick && typeof this.props.onClick === "function") {
+        this.props.onClick(e, this.props.seat);
+      }
     }
   }
 

@@ -116,10 +116,11 @@ export default class Basket extends Component {
     }
     let headerSubMessage = null;
     if (
-      this.props.concessions &&
-      this.props.concessions.length > 1 &&
+      this.props.basket &&
       this.props.basket.seats &&
-      this.props.basket.seats.length > 0
+      this.props.basket.seats.length > 0 &&
+      this.props.concessions &&
+      this.props.concessions.length > 1
     ) {
       headerSubMessage = "(discounts available, click on a seat for more info)";
     }

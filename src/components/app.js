@@ -22,7 +22,7 @@ export default class App extends Component {
       selectedEventFromLog: null,
       concessions: [],
       // domain: "https://test.qa.ingresso.co.uk",
-      domain: "https://www.dragos-laptop.ingresso.co.uk",
+      domain: "http://www.dragos-laptop.ingresso.co.uk",
       eventID: "7AB",
       perfID: "7AB-5",
       // eventID: "2GXJ",

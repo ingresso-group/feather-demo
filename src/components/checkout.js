@@ -20,10 +20,10 @@ export default class Checkout extends Component {
             onClick={this.props.onClose}
           />
           <p className="title">Your order is now reserved</p>
-          <p className="subtitle">Selected seats</p>
+          {/* <p className="subtitle">Selected seats</p>
           <ul>
             <SeatList {...this.props} seatsAreRemovable={false} />
-          </ul>
+          </ul> */}
           <p className="subtitle">The chosen send method</p>
           <p className="send-method">{sendMethodDescription}</p>
           <p className="subtitle">Transaction UUID</p>
