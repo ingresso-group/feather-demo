@@ -13,7 +13,7 @@ This tool allows you to easily build **interactive seat selection** into your we
 2. Add a container element, where the widget will appear
 
 3. Import our library at the bottom of your page:
-   [Get it here](https://storage.googleapis.com/ticketswitch/feather/0.3.0/feather.min.js)
+   [Get it here](https://storage.googleapis.com/ticketswitch/feather/0.4.3/feather.min.js)
 
 4. Configure the widget
 
@@ -35,7 +35,7 @@ This tool allows you to easily build **interactive seat selection** into your we
   <body>
     <div id="ingresso-widget"></div>
 
-    <script src="https://storage.googleapis.com/ticketswitch/feather/0.3.0/feather.min.js"></script>
+    <script src="https://storage.googleapis.com/ticketswitch/feather/0.4.3/feather.min.js"></script>
     <script>
       var chartConfig = {
         eventID: '7AB', // demo event
@@ -150,7 +150,7 @@ We have a demo user set up, that allows you to create an auth token for our demo
   <body>
     <div id="ingresso-widget"></div>
 
-    <script src="https://storage.googleapis.com/ticketswitch/feather/0.3.0/feather.min.js"></script>
+    <script src="https://storage.googleapis.com/ticketswitch/feather/0.4.3/feather.min.js"></script>
     <script>
       var chartConfig = {
         eventID: '7AB', // demo event
