@@ -24,7 +24,7 @@ export default class App extends Component {
       domain: "https://test.ticketswitch.com",
       // domain: "http://www.dragos-laptop.ingresso.co.uk",
       eventID: "7AB",
-      perfID: "7AB-5",
+      perfID: "7AB-7",
       // eventID: "2GXJ",
       // perfID: "2GXJ-56J",
       chartBackgroundColor: "#F9F9F9",

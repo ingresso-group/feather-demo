@@ -39,7 +39,7 @@ This tool allows you to easily build **interactive seat selection** into your we
     <script>
       var chartConfig = {
         eventID: '7AB', // demo event
-        perfID: '7AB-5',
+        perfID: '7AB-7',
         selector: '#ingresso-widget',
       }
       var chart = new IngressoSeatingPlan();
@@ -154,7 +154,7 @@ We have a demo user set up, that allows you to create an auth token for our demo
     <script>
       var chartConfig = {
         eventID: '7AB', // demo event
-        perfID: '7AB-5',
+        perfID: '7AB-7',
         selector: '#ingresso-widget',
         token: '<The-X-B2B-Token-From-Before>',
       }
