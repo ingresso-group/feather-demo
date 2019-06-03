@@ -1,5 +1,9 @@
 ## Change log
 
+##  [0.2.2] - 2019-06-03
+### Security
+- Patch security vulnerability in axios
+
 ##  [0.2.1](https://storage.googleapis.com/ticketswitch/feather/0.2.1/feather.min.js) - 2018-06-29
 ### Added
 - added a handler for 404 errors: this can be handled in any way is deemed reasonable, but at least they won't show an preloader with an unrelated page underneath anymore
