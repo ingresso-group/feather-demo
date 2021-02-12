@@ -1,5 +1,9 @@
 ## Change log
 
+##  [0.2.3] - 2021-02-12
+### Updated
+- Update default perf to be from 2022 instead of 2020
+
 ##  [0.2.2] - 2019-06-03
 ### Security
 - Patch security vulnerability in axios
