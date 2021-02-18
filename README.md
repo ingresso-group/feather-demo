@@ -62,6 +62,7 @@ In order to specify the event/performance to load availability for, as well as t
 #### Optional configuration parameters:
 
 - token (String) (Authentication token, not required to view the demo, but required to purchase; read more about how to obtain this in [Authentication](#authentication)
+- domain (String, default is "https://b2b.ingresso.co.uk" )
 - silenceWarnings (Boolean, default is **false**) (If set to **false**, the widget will provide warnings regarding missing configuration and suggestions on fixing issues)
 - preloaderColor (String) (Hex color e.g **#EC008C**)
 - hasCustomLegend (Boolean, default is **false**) (If you plan on changing the prices/messages displayed, you have to set this to **true** - see the **setLegend** function below)
