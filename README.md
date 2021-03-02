@@ -63,7 +63,7 @@ We have a demo user set up, that allows you to create an auth token for our demo
 ```bash
 curl https://b2b.ingresso.co.uk/api/b2b/ -u "demo:demopass" -ik
 ```
-This will have an `x-b2-b-token` in the response header
+This will have a `x-b2b-token` in the response header
 
 #### 2. Add your token to your chart config
 ```js
