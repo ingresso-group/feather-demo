@@ -53,6 +53,8 @@ This tool allows you to easily build **interactive seat selection** into your we
 
 ![Alt text](example.png?raw=true)
 
+> For some more examples of using feather in other JS frameworks see ./examples
+
 ## Authentication
 
 ### Getting Authenticated
