@@ -6,6 +6,18 @@ This tool allows you to easily build **interactive seat selection** into your we
 
 [Click to view the demo](https://ingresso-group.github.io/feather-demo/)
 
+### Deploying the Demo
+
+- Just merging into `master` will automatically deploy the demo
+
+#### To keep a nice clean release history you can additionally
+
+* Click on [Releases](https://github.com/ingresso-group/feather-demo/releases)
+* Click on *Draft a new release*
+* Fill in the tag number with the current version of *Feather Demo* (not the version of *Feather*) as per the Changelog
+* Fill in the *Release Title*
+* Click on *Publish Release*
+
 ## Getting Started
 
 1. Create an empty html file
