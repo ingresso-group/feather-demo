@@ -141,6 +141,7 @@ All of the callbacks will also receive an object containing all the data require
 There are also some imperative methods used to control the widget, that we can call either before or after initialising it:
 
 - selectSeatsByIdAndBlock ({ seat_id: string, seat_block: string })
+  > You can also pass an array of such seat objects to select multiple seats
 - zoomIn
 - zoomOut
 - resetChart
