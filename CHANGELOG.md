@@ -1,5 +1,9 @@
 ## Change log
 
+##  [0.2.7] - 2021-05-06
+### Updated
+- Update to feather v0.4.7
+
 ##  [0.2.6] - 2021-04-14
 ### Updated
 - Update to feather v0.4.6
