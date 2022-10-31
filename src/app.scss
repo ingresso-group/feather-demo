@@ -1,0 +1,30 @@
+.main-container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+    margin-right: 10px;
+}
+
+.main-content {
+    width: 100%;
+}
+
+.feather-container {
+    height: "calc(100vh - 200px)";
+    transition: 600ms;
+    transition-timing-function: ease-in-out;
+}
+
+ul {
+    list-style-type: none;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+iframe {
+    border: 0 !important;
+}
+
+button {
+    outline: 0;
+}
