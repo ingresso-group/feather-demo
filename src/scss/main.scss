@@ -44,19 +44,6 @@ iframe {
     border: 0 !important;
 }
 
-button {
-    transition-duration: 0.4s;
-    background-color: white;
-    color: black;
-    border: 2px solid #f4b793;
-    border-radius: 3px;
-}
-
-button:hover {
-    background-color: #d66d8d;
-    color: white;
-}
-
 .button-grid {
     display: grid;
     grid-template-columns: 50% 50%;

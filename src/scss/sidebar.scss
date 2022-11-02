@@ -12,7 +12,7 @@
     }
 
     .menu {
-        max-height: "calc(100vh - 130px)";
+        max-height: calc(100vh - 130px);
         overflow: auto;
     }
 
@@ -73,7 +73,7 @@
                         content: "";
                         width: 4px;
                         position: absolute;
-                        height: "calc(100% + 0px)";
+                        height: calc(100% + 0px);
                         left: 0;
                         top: 0px;
                         background-color: $color-accent-2;
