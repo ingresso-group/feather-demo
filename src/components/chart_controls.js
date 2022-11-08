@@ -177,7 +177,7 @@ export default class ChartControls extends Component {
                     <button onClick={this.props.halvePrices}>
                         Halve Prices
                     </button>
-                    <button onClick={this.props.toggleCurrency}>
+                    <button onClick={this.props.toggleCurrencySymbol}>
                         Toggle Currency Symbol
                     </button>
                 </div>

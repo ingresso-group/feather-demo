@@ -50,6 +50,7 @@ export default class App extends Component {
         this.hideConcessions = this.hideConcessions.bind(this);
         this.displayEventContent = this.displayEventContent.bind(this);
         this.displayErrorModal = this.displayErrorModal.bind(this);
+        this.toggleCurrencySymbol = this.toggleCurrencySymbol.bind(this);
 
         // Feather imperative methods
         this.removeSeat = this.removeSeat.bind(this);
@@ -367,8 +368,12 @@ export default class App extends Component {
     }
 
     toggleCurrencySymbol() {
-        this.state.hide_currency_symbol = !this.state.hide_currency_symbol;
-        this.initFeather();
+        this.setState({
+            hide_currency_symbol: !this.state.hide_currency_symbol,
+        });
+        setTimeout(() => {
+            this.initFeather();
+        }, 100);
     }
 
     render() {
@@ -411,7 +416,7 @@ export default class App extends Component {
                     showControls={this.chart ? this.chart.showControls : null}
                     hideControls={this.chart ? this.chart.hideControls : null}
                     halvePrices={this.halvePrices}
-                    toggleCurrency={this.toggleCurrencySymbol}
+                    toggleCurrencySymbol={this.toggleCurrencySymbol}
                 />
                 <div className="main-content">
                     <div className={`feather-container ${featherClassNames}`} />
