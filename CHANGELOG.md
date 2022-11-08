@@ -1,10 +1,10 @@
 ## Change log
 
-## [0.2.8] - 2022-10-31
+## [0.2.8] - 2022-11-08
 
 ### Updated
 
--   Update to feather v0.4.8
+-   Update to feather v0.4.8 and pointer to latest gcloud folder
 -   Added toggle for hiding currency symbol
 
 ## [0.2.7] - 2021-05-06

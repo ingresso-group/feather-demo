@@ -25,7 +25,7 @@ This tool allows you to easily build **interactive seat selection** into your we
 2. Add a container element, where the widget will appear
 
 3. Import our library at the bottom of your page:
-   [Get it here](https://storage.googleapis.com/ticketswitch/feather/latestfeather.min.js)
+   [Get it here](https://storage.googleapis.com/ticketswitch/feather/latest/feather.min.js)
 
 4. Configure the widget and initialise the chart
 
