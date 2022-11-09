@@ -1,0 +1,48 @@
+.chart-controls-container {
+    padding-left: 10px;
+    padding-right: 10px;
+
+    button {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    select {
+        height: 30px;
+        margin-bottom: 15px;
+        display: block;
+    }
+
+    .input-group {
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: -10px;
+    }
+
+    input[type="text"] {
+        display: inline-block;
+        width: 100%;
+        margin-bottom: 15px;
+        border: 0;
+        border: 1px dotted #ddd;
+        text-align: center;
+        font-size: 1em;
+        border-radius: 50px;
+        outline: 0;
+    }
+
+    label {
+        display: inline-block !important;
+        margin-left: 10px;
+
+        &:hover {
+            border: 0 !important;
+            background-color: transparent !important;
+            &:before,
+            &:after {
+                display: none;
+            }
+        }
+    }
+}

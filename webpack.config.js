@@ -6,85 +6,87 @@ const webpack = require("webpack");
 const Uglify = require("uglifyjs-webpack-plugin");
 
 function Config(env) {
-  let plugins = [
-    new webpack.DefinePlugin({
-      "process.env.NODE_ENV":
-        env === "production"
-          ? JSON.stringify("production")
-          : JSON.stringify("development"),
-    }),
-  ];
-  if (env === "production") {
-    plugins.push(
-      new Uglify({
-        uglifyOptions: {
-          ecma: 5,
-          output: {
-            comments: false,
-          },
-          compress: true,
-        },
-      })
-    );
-  }
+    let plugins = [
+        new webpack.DefinePlugin({
+            "process.env.NODE_ENV":
+                env === "production"
+                    ? JSON.stringify("production")
+                    : JSON.stringify("development"),
+        }),
+    ];
+    if (env === "production") {
+        plugins.push(
+            new Uglify({
+                uglifyOptions: {
+                    ecma: 5,
+                    output: {
+                        comments: false,
+                    },
+                    compress: true,
+                },
+            })
+        );
+    }
 
-  return {
-    entry: "./src/index.js",
-    output: {
-      path: path.resolve("./build"),
-      filename: "main.min.js",
-    },
-    resolve: {
-      modules: [path.resolve("./src/"), path.resolve("./node_modules")],
-    },
-    module: {
-      loaders: [
-        {
-          test: /\.js$/,
-          loader: "babel-loader",
-          exclude: /node_modules/,
-          query: {
-            presets: ["es2015-ie", "react"],
-          },
+    return {
+        entry: "./src/index.js",
+        output: {
+            path: path.resolve("./build"),
+            filename: "main.min.js",
         },
-        {
-          test: /\.jsx$/,
-          loader: "babel-loader",
-          exclude: /node_modules/,
-          query: {
-            presets: ["es2015-ie", "react"],
-          },
+        resolve: {
+            modules: [path.resolve("./src/"), path.resolve("./node_modules")],
         },
-        {
-          test: /\.less$/,
-          loader: "style-loader!css-loader!autoprefixer-loader!less-loader",
+        module: {
+            rules: [
+                {
+                    test: /\.(jsx|js)$/,
+                    include: path.resolve(__dirname, "src"),
+                    exclude: /node_modules/,
+                    use: [
+                        {
+                            loader: "babel-loader",
+                            options: {
+                                presets: [
+                                    [
+                                        "@babel/preset-env",
+                                        {
+                                            targets: "defaults",
+                                        },
+                                    ],
+                                    "@babel/preset-react",
+                                ],
+                            },
+                        },
+                    ],
+                },
+                {
+                    test: /\.s[ac]ss$/i,
+                    include: path.resolve(__dirname, "src"),
+                    exclude: /node_modules/,
+                    use: [
+                        // Creates `style` nodes from JS strings
+                        "style-loader",
+                        // Translates CSS into CommonJS
+                        "css-loader",
+                        // Compiles Sass to CSS
+                        "sass-loader",
+                    ],
+                },
+                {
+                    test: /\.less$/i,
+                    include: path.resolve(__dirname, "src"),
+                    exclude: /node_modules/,
+                    use: [
+                        // compiles Less to CSS
+                        "style-loader",
+                        "css-loader",
+                        "less-loader",
+                    ],
+                },
+            ],
         },
-        {
-          test: /\.css$/,
-          loader: "style-loader!css-loader!autoprefixer-loader!less-loader",
-        },
-        {
-          test: /\.svg$/,
-          use: [
-            {
-              loader: "babel-loader",
-            },
-            {
-              loader: "react-svg-loader",
-              options: {
-                jsx: true, // true outputs JSX tags
-              },
-            },
-          ],
-        },
-      ],
-    },
-    plugins,
-    watch: false,
-    watchOptions: {
-      aggregateTimeout: 300,
-      poll: 500,
-    },
-  };
+        plugins,
+    };
 }
 module.exports = Config;

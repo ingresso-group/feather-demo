@@ -1,0 +1,201 @@
+.basket {
+    height: 160px;
+    margin-top: 10px;
+    background-color: $color-base-b;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 15px;
+    overflow: auto;
+    transition: 600ms;
+    transition-timing-function: ease-in-out;
+
+    .header {
+        background-color: $color-base;
+        color: $color-alternative;
+        border: 1px solid $color-base;
+        padding: 12px 20px;
+        border-radius: 50px;
+        letter-spacing: 1px;
+        font-size: 1em;
+        font-weight: 500;
+        opacity: 0.5;
+        font-size: 0.85em;
+        font-weight: 500;
+        position: relative;
+
+        .subtitle {
+            display: block;
+            margin-left: 25px;
+            font-size: 0.85em;
+            opacity: 0.7;
+            letter-spacing: 1px;
+        }
+
+        i {
+            margin-right: 10px;
+        }
+    }
+
+    .proceed {
+        border: 1px dashed $color-alternative;
+        color: $color-alternative;
+        opacity: 0.3;
+        background-color: transparent;
+        padding: 6px 20px;
+        border-radius: 50px;
+        letter-spacing: 1px;
+        font-size: 0.9em;
+        cursor: pointer;
+        position: absolute;
+        transform: translate(0, -50%);
+        right: 20px;
+        top: 50%;
+        pointer-events: none;
+
+        &.enabled {
+            color: $color-base;
+            background-color: $color-accent-2-b;
+            border: 1px solid $color-accent-2-b;
+            opacity: 1;
+            pointer-events: all;
+            z-index: 1;
+
+            &:hover {
+                // background-color: $color-accent-2;
+                // border: 1px solid $color-accent-2;
+                opacity: 0.7;
+
+                // background-color: $color-accent-2-b;
+                // color: $color-base;
+                // color: $color-accent-2-b;
+                // background-color: $color-base;
+            }
+        }
+    }
+
+    .reserve {
+        color: $color-alternative;
+        background-color: transparent;
+        opacity: 0.2;
+        padding: 9px 20px;
+        border-radius: 50px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        font-size: 1em;
+        border: 1px dashed $color-alternative;
+        width: 50%;
+        max-width: 300px;
+        margin: 0 auto;
+        margin-top: 30px;
+        display: block;
+        pointer-events: none;
+        user-select: none;
+
+        &.enabled {
+            background-color: $color-accent-2-b;
+            border: 2px solid $color-accent-2-b;
+            color: $color-base;
+            font-weight: 500;
+            opacity: 1;
+            pointer-events: all;
+            cursor: pointer;
+
+            &:hover {
+                opacity: 0.7;
+            }
+        }
+    }
+
+    .seats {
+        margin: 0;
+        margin-top: 5px;
+
+        li {
+            cursor: pointer;
+
+            &:hover {
+                background-color: $color-base-b;
+            }
+
+            .description {
+                font-weight: 700;
+            }
+
+            .remove {
+                margin-left: 10px;
+                margin-right: -15px;
+                margin-left: 20px;
+                // border: 1px solid $color-alternative;
+                border: 1px solid $color-accent-2-b;
+                border-radius: 50%;
+                width: 17px;
+                height: 17px;
+                position: relative;
+                top: -1px;
+                text-align: center;
+                font-size: 0.8em;
+                line-height: 17px;
+                // opacity: 0.25;
+                cursor: pointer;
+                transition: all 300ms;
+                color: $color-accent-2-b;
+
+                &:hover {
+                    // background-color: $color-alternative;
+                    background-color: $color-accent-1-b;
+                    border-color: $color-accent-1-b;
+                    color: $color-base;
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    .part-2 {
+        margin-top: 10px;
+    }
+
+    &.active {
+        .header {
+            opacity: 1;
+        }
+    }
+
+    &.expanded {
+        height: 100%;
+    }
+
+    .send-methods {
+        li {
+            border-color: $color-alternative;
+            color: $color-alternative;
+            display: block;
+            opacity: 0.7;
+            font-weight: 400;
+            margin-bottom: 10px;
+            cursor: pointer;
+
+            .description {
+                margin-right: 5px;
+            }
+            .cost {
+                margin-left: 5px;
+            }
+
+            &.selected,
+            &:hover {
+                border-color: $color-accent-2-b;
+                color: $color-alternative;
+                font-weight: 700;
+                opacity: 1;
+                // background-color: $color-accent-2-b;
+                // color: $color-base;
+
+                .description,
+                .cost {
+                    color: $color-alternative;
+                }
+            }
+        }
+    }
+}

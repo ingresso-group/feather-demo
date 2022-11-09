@@ -1,0 +1,123 @@
+.sidebar {
+    width: 300px;
+    background-color: $color-base;
+    text-align: center;
+
+    .logo {
+        width: 40px;
+    }
+
+    .icon-feather path {
+        color: $color-accent-2-b;
+    }
+
+    .menu {
+        max-height: calc(100vh - 130px);
+        overflow: auto;
+    }
+
+    small {
+        opacity: 0.5;
+        margin-bottom: 10px;
+        display: inline-block;
+        font-size: 0.85em;
+    }
+
+    ul {
+        li {
+            font-size: 0.85em;
+            border-top: 2px solid $color-base-b;
+            border-bottom: 2px solid $color-base-b;
+            color: $color-alternative;
+
+            margin-top: -2px;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 300ms;
+            text-align: left;
+            font-weight: 700;
+
+            .arrow {
+                position: absolute;
+                right: 10px;
+                font-size: 0.8em;
+                opacity: 0.3;
+                transform: translate(-50%, -50%);
+                top: 50%;
+            }
+
+            .icon {
+                margin-right: 10px;
+                margin-left: 30px;
+                font-size: 1.4em;
+                vertical-align: middle;
+            }
+
+            label {
+                position: relative;
+                display: block;
+                padding-top: 15px;
+                padding-bottom: 15px;
+                cursor: pointer;
+                opacity: 0.35;
+
+                &:hover {
+                    background-color: $color-base-b;
+                }
+
+                &.selected,
+                &:hover {
+                    opacity: 1;
+
+                    &:after {
+                        content: "";
+                        width: 4px;
+                        position: absolute;
+                        height: calc(100% + 0px);
+                        left: 0;
+                        top: 0px;
+                        background-color: $color-accent-2;
+                        border-radius: 5px;
+                    }
+
+                    .icon {
+                        background: -webkit-linear-gradient(
+                            $color-accent-1,
+                            $color-accent-1-b
+                        );
+                        -webkit-background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                    }
+                }
+            }
+
+            .event-log {
+                & > li {
+                    padding-top: 15px;
+                    padding-bottom: 15px;
+                    font-size: 0.8em;
+                    opacity: 0.6;
+                    cursor: pointer;
+                    padding-left: 10px;
+
+                    &:hover,
+                    &.selected {
+                        opacity: 1;
+                        font-weight: 700;
+                        background-color: $color-base-b;
+                    }
+                }
+            }
+        }
+    }
+
+    .event-log {
+        padding-left: 48px;
+        margin-top: 10px;
+
+        li {
+            font-weight: 400;
+            color: #000;
+        }
+    }
+}

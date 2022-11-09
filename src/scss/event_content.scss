@@ -1,0 +1,30 @@
+.event-content {
+    position: fixed;
+    right: 0;
+    top: 0;
+    overflow: auto;
+    height: 100vh;
+    width: calc(100vw - 225px);
+    background-color: $color-base;
+    padding-left: 20px;
+    box-sizing: border-box;
+    z-index: 3;
+
+    .close-button {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        cursor: pointer;
+        color: $color-alternative;
+        z-index: 1;
+        font-size: 1.7em;
+
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+
+    .react-json-view {
+        padding-top: 20px;
+    }
+}

@@ -8,15 +8,15 @@ This tool allows you to easily build **interactive seat selection** into your we
 
 ### Deploying the Demo
 
-- Just merging into `master` will automatically deploy the demo
+-   Just merging into `master` will automatically deploy the demo
 
 #### To keep a nice clean release history you can additionally
 
-* Click on [Releases](https://github.com/ingresso-group/feather-demo/releases)
-* Click on *Draft a new release*
-* Fill in the tag number with the current version of *Feather Demo* (not the version of *Feather*) as per the Changelog
-* Fill in the *Release Title*
-* Click on *Publish Release*
+-   Click on [Releases](https://github.com/ingresso-group/feather-demo/releases)
+-   Click on _Draft a new release_
+-   Fill in the tag number with the current version of _Feather Demo_ (not the version of _Feather_) as per the Changelog
+-   Fill in the _Release Title_
+-   Click on _Publish Release_
 
 ## Getting Started
 
@@ -25,41 +25,42 @@ This tool allows you to easily build **interactive seat selection** into your we
 2. Add a container element, where the widget will appear
 
 3. Import our library at the bottom of your page:
-   [Get it here](https://storage.googleapis.com/ticketswitch/feather/0.4.7/feather.min.js)
+   [Get it here](https://storage.googleapis.com/ticketswitch/feather/latest/feather.min.js)
 
 4. Configure the widget and initialise the chart
 
 5. Open in the browser
 
 ### A Simple Example
+
 ```html
-<!doctype html>
+<!DOCTYPE html>
 
 <html>
-  <head>
-    <style>
-      #ingresso-widget {
-        width: 500px;
-        height: 500px;
-      }
-    </style>
-  </head>
+    <head>
+        <style>
+            #ingresso-widget {
+                width: 500px;
+                height: 500px;
+            }
+        </style>
+    </head>
 
-  <body>
-    <div id="ingresso-widget"></div>
+    <body>
+        <div id="ingresso-widget"></div>
 
-    <script src="https://storage.googleapis.com/ticketswitch/feather/0.4.7/feather.min.js"></script>
-    <script>
-      var chartConfig = {
-        eventID: '7AB', // demo event
-        perfID: '7AB-9',
-        selector: '#ingresso-widget',
-        token: '<The-X-B2B-Token>' // see the Authentication section below
-      }
-      var chart = new IngressoSeatingPlan();
-      chart.init(chartConfig);
-    </script>
-  </body>
+        <script src="https://storage.googleapis.com/ticketswitch/feather/latest/feather.min.js"></script>
+        <script>
+            var chartConfig = {
+                eventID: "7AB", // demo event
+                perfID: "7AB-9",
+                selector: "#ingresso-widget",
+                token: "<The-X-B2B-Token>", // see the Authentication section below
+            };
+            var chart = new IngressoSeatingPlan();
+            chart.init(chartConfig);
+        </script>
+    </body>
 </html>
 ```
 
@@ -74,19 +75,22 @@ This tool allows you to easily build **interactive seat selection** into your we
 We have a demo user set up, that allows you to create an auth token for our demo so that you can experiment with the seat chart.
 
 #### 1. Get an auth token
+
 ```bash
 curl https://b2b.ingresso.co.uk/api/b2b/ -u "demo:demopass" -ik
 ```
+
 This will have a `x-b2b-token` in the response header
 
 #### 2. Add your token to your chart config
+
 ```js
 var chartConfig = {
-  eventID: '7AB', // demo event
-  perfID: '7AB-9',
-  selector: '#ingresso-widget',
-  token: '<The-X-B2B-Token>' // 👈👈👈
-}
+    eventID: "7AB", // demo event
+    perfID: "7AB-9",
+    selector: "#ingresso-widget",
+    token: "<The-X-B2B-Token>", // 👈👈👈
+};
 var chart = new IngressoSeatingPlan();
 chart.init(chartConfig);
 ```
@@ -99,38 +103,37 @@ Each authentication token has a **maximum** lifetime of 4 hours and is valid for
 
 **Note:** We are most likely going to change this and move to a model of manually-generated tokens that will have an unlimited lifetime and this would remove the complexity of generating and managing them on your side, but in the meantime, you should use the approach presented above.
 
-
 ## Widget Configuration
 
 In order to specify the event/performance to load availability for, as well as to specify where to load the widget from, we use a configuration object.
 
 #### Required configuration parameters:
 
-- eventID (String)
-- perfID (String)
-- selector (String) (the identifier of the container that will hold the widget)
+-   eventID (String)
+-   perfID (String)
+-   selector (String) (the identifier of the container that will hold the widget)
 
 #### Optional configuration parameters:
 
-- token (String) (Authentication token, not required to view the demo, but required to purchase; read more about how to obtain this in [Authentication](#authentication)
-- domain (String, default is "https://b2b.ingresso.co.uk" )
-- silenceWarnings (Boolean, default is **false**) (If set to **false**, the widget will provide warnings regarding missing configuration and suggestions on fixing issues)
-- preloaderColor (String) (Hex color e.g **#EC008C**)
-- hasCustomLegend (Boolean, default is **false**) (If you plan on changing the prices/messages displayed, you have to set this to **true** - see the **setLegend** function below)
-- allowControlsOnSmallScreens (Boolean, default is **false**) (Normally, **plus/minus/reset** controls get hidden on small/mobile devices, because in most cases, there isn't enough room or they simply aren't needed. This allows you to override that behaviour)
+-   token (String) (Authentication token, not required to view the demo, but required to purchase; read more about how to obtain this in [Authentication](#authentication)
+-   domain (String, default is "https://b2b.ingresso.co.uk" )
+-   silenceWarnings (Boolean, default is **false**) (If set to **false**, the widget will provide warnings regarding missing configuration and suggestions on fixing issues)
+-   preloaderColor (String) (Hex color e.g **#EC008C**)
+-   hasCustomLegend (Boolean, default is **false**) (If you plan on changing the prices/messages displayed, you have to set this to **true** - see the **setLegend** function below)
+-   allowControlsOnSmallScreens (Boolean, default is **false**) (Normally, **plus/minus/reset** controls get hidden on small/mobile devices, because in most cases, there isn't enough room or they simply aren't needed. This allows you to override that behaviour)
 
 ## Getting information out of the widget
 
 In order to allow the host page to respond to user actions on the seating plan, there are a suite of callbacks available:
 
-- onChartInitialised
-- onAddSeat
-- onRemoveSeat
-- onEmptyBasket
-- onGoToCheckout
-- onNewAvailabilityData
-- onNewLegendColors
-- onReserveStopped
+-   onChartInitialised
+-   onAddSeat
+-   onRemoveSeat
+-   onEmptyBasket
+-   onGoToCheckout
+-   onNewAvailabilityData
+-   onNewLegendColors
+-   onReserveStopped
 
 All of the callbacks will also receive an object containing all the data required to display the right information to the user.
 
@@ -140,23 +143,23 @@ All of the callbacks will also receive an object containing all the data require
 
 There are also some imperative methods used to control the widget, that we can call either before or after initialising it:
 
-- selectSeatsByIdAndBlock ({ seat_id: string, seat_block: string })
-  > You can also pass an array of such seat objects to select multiple seats
-- zoomIn
-- zoomOut
-- resetChart
-- hideControls
-- showControls
-- hideLegend
-- showLegend
-- reserve
-- release
-- disableScrollToZoom
-- disableInitialToZoom
-- changeColorScheme (Array of strings) (Hex colors, e.g ['#462446', '#B05F6D', '#EB6B56', '#FFC153', '#47B39D', '#CDCBA6', '#008891', '#00587A', '#ff0000', '#0F3057'])
-- selectPerformance (String) (ID of desired performance, you get this from the Ingresso API; when this function is called, the widget will automatically make itself visible)
-- setPreloader ({css, html}) - if you set this, it will override the default preloader
-- setLegend (Object) - when new availability data is received, you can take the legend object, change any values within it (prices, messages) and then use this function to send it back to the app. It will immediately update the displayed prices.
+-   selectSeatsByIdAndBlock ({ seat_id: string, seat_block: string })
+    > You can also pass an array of such seat objects to select multiple seats
+-   zoomIn
+-   zoomOut
+-   resetChart
+-   hideControls
+-   showControls
+-   hideLegend
+-   showLegend
+-   reserve
+-   release
+-   disableScrollToZoom
+-   disableInitialToZoom
+-   changeColorScheme (Array of strings) (Hex colors, e.g ['#462446', '#B05F6D', '#EB6B56', '#FFC153', '#47B39D', '#CDCBA6', '#008891', '#00587A', '#ff0000', '#0F3057'])
+-   selectPerformance (String) (ID of desired performance, you get this from the Ingresso API; when this function is called, the widget will automatically make itself visible)
+-   setPreloader ({css, html}) - if you set this, it will override the default preloader
+-   setLegend (Object) - when new availability data is received, you can take the legend object, change any values within it (prices, messages) and then use this function to send it back to the app. It will immediately update the displayed prices.
 
 Availability data and colours are received via their own callbacks (**onNewAvailabilityData** and **onNewLegendColors**) and are needed in order to display pricing information and colors for the selected seats. (Each seat's data contains a reference to a specific legend item, for price/colour)
 
@@ -170,19 +173,18 @@ When called, **goToCheckout** will contain a **transaction_uuid** property, that
 
 If the requested seats happen to have become unavailable before the user can reserve them, the widget will display a modal window giving the user a choice between going back and selecting other seats manually or going through with a pre-selected set of seats recommended by our system.
 
-- If they choose to select different seats manually, the modal closes and the initially-selected seats drop off the seating map.
-- If they choose to proceed with the recommended seats, the modal will also close and the app will make a reservation call for the new seats. When this process finishes, the newly-created reservation will be for the recommended seats, which you can then display on your checkout page (or anywhere you choose).
-
+-   If they choose to select different seats manually, the modal closes and the initially-selected seats drop off the seating map.
+-   If they choose to proceed with the recommended seats, the modal will also close and the app will make a reservation call for the new seats. When this process finishes, the newly-created reservation will be for the recommended seats, which you can then display on your checkout page (or anywhere you choose).
 
 ## Customisation
 
 The widget supports easy customisation of the following attributes:
 
-- seating plan colors
-- fonts
-- texts
-- look & feel (as long as you provide us with the required CSS, we'll apply it for your integration only)
-- prices (legend and hover tooltip)
+-   seating plan colors
+-   fonts
+-   texts
+-   look & feel (as long as you provide us with the required CSS, we'll apply it for your integration only)
+-   prices (legend and hover tooltip)
 
 However, all of these are changed via our internal control panel, so you have to ask us to do them for you.
 

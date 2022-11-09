@@ -1,14 +1,17 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import Cookies from "js-cookie";
+import "./scss/main.scss";
 
-import "less/main.less";
-
-import App from "components/app";
+import App from "./components/app";
 
 showApp();
 
 function showApp() {
-  let appContainer = <App />;
-  ReactDOM.render(appContainer, document.getElementsByTagName("main")[0]);
+    const root = ReactDOM.createRoot(document.getElementsByTagName("main")[0]);
+    root.render(
+        <React.StrictMode>
+            <App />
+        </React.StrictMode>
+    );
 }
