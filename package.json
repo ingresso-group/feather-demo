@@ -3,6 +3,8 @@
     "version": "0.2.8",
     "description": "",
     "scripts": {
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d build",
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,6 +12,7 @@
     "author": "Dragos Iordachioaia",
     "license": "ISC",
     "main": "",
+    "homepage": "https://ingresso-group.github.io/feather-demo/",
     "devDependencies": {
         "autoprefixer-loader": "^3.2.0",
         "axios": "^1.1.3",
@@ -56,6 +59,7 @@
         "webpack": "^5.74.0"
     },
     "dependencies": {
+        "gh-pages": "^4.0.0",
         "react-scripts": "^5.0.1"
     },
     "browserslist": {

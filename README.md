@@ -8,7 +8,7 @@ This tool allows you to easily build **interactive seat selection** into your we
 
 ### Deploying the Demo
 
--   Just merging into `master` will automatically deploy the demo
+-   To deploy the demo, run the `npm run deploy` command
 
 #### To keep a nice clean release history you can additionally
 
