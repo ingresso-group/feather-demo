@@ -186,6 +186,13 @@ The widget supports easy customisation of the following attributes:
 -   look & feel (as long as you provide us with the required CSS, we'll apply it for your integration only)
 -   prices (legend and hover tooltip)
 
+You can now also pass the following configuration options to hide various components in the seatmap
+
+- hide_currency_symbol
+- hide_offer_messages
+
+Having these options set in your chart config object with any value (e.g. true) will hide the relevant text from the seatmap legend.
+
 However, all of these are changed via our internal control panel, so you have to ask us to do them for you.
 
 The only things that can be changed by your are the color scheme on the seating plan and the preloader color, which you should provide in the configuration object of the widget (see [Configuration](#widget-configuration))
