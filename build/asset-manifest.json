@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/feather-demo/static/css/main.63612fde.css",
-    "main.js": "/feather-demo/static/js/main.1015598d.js",
+    "main.js": "/feather-demo/static/js/main.ff10d9e4.js",
     "index.html": "/feather-demo/index.html",
     "main.63612fde.css.map": "/feather-demo/static/css/main.63612fde.css.map",
-    "main.1015598d.js.map": "/feather-demo/static/js/main.1015598d.js.map"
+    "main.ff10d9e4.js.map": "/feather-demo/static/js/main.ff10d9e4.js.map"
   },
   "entrypoints": [
     "static/css/main.63612fde.css",
-    "static/js/main.1015598d.js"
+    "static/js/main.ff10d9e4.js"
   ]
 }

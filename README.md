@@ -53,7 +53,7 @@ This tool allows you to easily build **interactive seat selection** into your we
         <script>
             var chartConfig = {
                 eventID: "7AB", // demo event
-                perfID: "7AB-9",
+                perfID: "7AB-D",
                 selector: "#ingresso-widget",
                 token: "<The-X-B2B-Token>", // see the Authentication section below
             };
@@ -87,7 +87,7 @@ This will have a `x-b2b-token` in the response header
 ```js
 var chartConfig = {
     eventID: "7AB", // demo event
-    perfID: "7AB-9",
+    perfID: "7AB-D",
     selector: "#ingresso-widget",
     token: "<The-X-B2B-Token>", // 👈👈👈
 };

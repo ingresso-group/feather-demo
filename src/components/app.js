@@ -24,7 +24,7 @@ export default class App extends Component {
             domain: "https://whitelabel-v2.qa.ingresso.co.uk",
             // domain: "http://www.dragos-laptop.ingresso.co.uk",
             eventID: "7AB",
-            perfID: "7AB-9",
+            perfID: "7AB-D",
             // eventID: "2GXJ",
             // perfID: "2GXJ-56J",
             chartBackgroundColor: "#F9F9F9",

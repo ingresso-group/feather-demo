@@ -28,7 +28,7 @@ export class SeatPickerComponent implements OnInit {
     script.text = `
       var chartConfig = {
         eventID: '7AB', // demo event
-        perfID: '7AB-9',
+        perfID: '7AB-D',
         selector: '#ingresso-widget',
         token: '<The-X-B2B-Token>' // see the Authentication section in the README
       }
