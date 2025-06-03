@@ -25,7 +25,7 @@ This tool allows you to easily build **interactive seat selection** into your we
 2. Add a container element, where the widget will appear
 
 3. Import our library at the bottom of your page:
-   [Get it here](https://storage.googleapis.com/ticketswitch/feather/latest/feather.min.js)
+   [Get it here](https://static.ticketswitch.com/feather/latest/feather.min.js)
 
 4. Configure the widget and initialise the chart
 
@@ -49,7 +49,7 @@ This tool allows you to easily build **interactive seat selection** into your we
     <body>
         <div id="ingresso-widget"></div>
 
-        <script src="https://storage.googleapis.com/ticketswitch/feather/latest/feather.min.js"></script>
+        <script src="https://static.ticketswitch.com/feather/latest/feather.min.js"></script>
         <script>
             var chartConfig = {
                 eventID: "7AB", // demo event
@@ -188,8 +188,8 @@ The widget supports easy customisation of the following attributes:
 
 You can now also pass the following configuration options to hide various components in the seatmap
 
-- hide_currency_symbol
-- hide_offer_messages
+-   hide_currency_symbol
+-   hide_offer_messages
 
 Having these options set in your chart config object with any value (e.g. true) will hide the relevant text from the seatmap legend.
 
